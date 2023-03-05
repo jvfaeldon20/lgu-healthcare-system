@@ -4,118 +4,58 @@
     <?php include 'templates/header.php' ?>
 	<title>Login -  Barangay Management System</title>
 
+</head>
 <body class="login">
 	<?php include 'templates/loading_screen.php' ?>
-	<div class="container-fluid bg-default">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				
-			</div>
-		</div>
-		<div class="row">
-			<!-- resident login -->
-			<div class="col-md-1"></div>
-
-			<!-- member login -->
-			<div class="col-md-3">
 				<div class="wrapper wrapper-login">
-					<div class="container animated fadeIn">
-						<form class="form-signin" method="POST" action="model/login.php">
-							<h2 class="form-signin-heading mb-3">Member Login</h2>
-							<label for="inputUsername" class="sr-only">Username</label>
-							<input id="inputUsername" class="form-control mb-2" placeholder="Username" name="username"  autofocus>
-							<label for="password" class="sr-only">Password</label>
-							<input type="password" id="password" class="form-control mb-5" placeholder="Password" name="password" >
-							<button class="btn btn-primary btn-rounded" type="submit">Sign in</button>
-							<button class="btn btn-primary btn-rounded btn-success" type="submit">Login as Resident</button>
-						</form>
-					</div>
+					<section class="vh-100">
+						<div class="container py-5 h-100">
+							<div class="row d-flex justify-content-center align-items-center h-100">
+								<div class="col col-xl-10">
+									<div class="card" style="border-radius: 1rem;">
+										<div class="row g-0">
+											<div class="col-md-12  d-flex align-items-center">
+												<div class="card-body p-4 p-lg-5 text-black">
+													<form method="POST" action="model/login.php">
+														<!-- login as member -->
+														<div class="mb-3 pb-1 text-center">
+															<i class="fas fa-briefcase-medical fa-2x me-3 mr-2 text-primary" ></i>
+															<span class="h1 fw-bold mb-0 ">Masili Health Service System</span>
+														</div>
+														<h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign in as member</h5>
+														<div class="form-outline mb-4">
+															<input name="username" class="form-control form-control-lg" />
+															<label class="form-label" for="username">Username</label>
+														</div>
+														<div class="form-outline mb-4">
+															<input type="password" name="password" class="form-control form-control-lg" />
+															<label class="form-label" for="password">Password</label>
+														</div>
+														<div class="pt-1 mb-4">
+															<button class="btn btn-dark btn-lg btn-block" type="button">Login</button>
+														</div>
+
+														<!-- spacer -->
+														<hr class="my-4">
+
+														<!-- login as resident -->
+														<button class="btn btn-lg btn-block btn-primary" type="submit">
+															<i class="fas fa-user me-2 mr-2"></i> Login as Resident
+														</button>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
 				</div>
 			</div>
-
-			<!-- announcement -->
-			<div class="col-md-7">
-				<div class="wrapper wrapper-login">
-					<div class="container-fluid animated fadeIn mr-5">
-						<h3 class="text-primary">ANNOUNCEMENT</h3>
-						<div class="media">
-							<div class="media-left mr-3">
-							  <a href="#">
-								<img class="media-object" src="https://dummyimage.com/64x64/" alt="...">
-							  </a>
-							</div>
-							<div class="media-body">
-							  <h4 class="media-heading text-primary">Media heading</h4>
-							  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores eius accusamus et eos architecto dolorum explicabo incidunt quod dicta dolor sunt, expedita veniam officia commodi, quam atque sed quidem nostrum?
-							</div>
-						</div>
-						<hr>
-						<div class="media">
-							<div class="media-left mr-3">
-							  <a href="#">
-								<img class="media-object" src="https://dummyimage.com/64x64/" alt="...">
-							  </a>
-							</div>
-							<div class="media-body">
-							  <h4 class="media-heading text-primary">Media heading</h4>
-							  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores eius accusamus et eos architecto dolorum explicabo incidunt quod dicta dolor sunt, expedita veniam officia commodi, quam atque sed quidem nostrum?
-							</div>
-						</div>
-						<hr>
-						<div class="media">
-							<div class="media-left mr-3">
-							  <a href="#">
-								<img class="media-object" src="https://dummyimage.com/64x64/" alt="...">
-							  </a>
-							</div>
-							<div class="media-body">
-							  <h4 class="media-heading text-primary">Media heading</h4>
-							  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores eius accusamus et eos architecto dolorum explicabo incidunt quod dicta dolor sunt, expedita veniam officia commodi, quam atque sed quidem nostrum?
-							</div>
-						</div>
-						<hr>
-						<div class="media">
-							<div class="media-left mr-3">
-							  <a href="#">
-								<img class="media-object" src="https://dummyimage.com/64x64/" alt="...">
-							  </a>
-							</div>
-							<div class="media-body">
-							  <h4 class="media-heading text-primary">Media heading</h4>
-							  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores eius accusamus et eos architecto dolorum explicabo incidunt quod dicta dolor sunt, expedita veniam officia commodi, quam atque sed quidem nostrum?
-							</div>
-						</div>
-						<hr>
-						<div class="media">
-							<div class="media-left mr-3">
-							  <a href="#">
-								<img class="media-object" src="https://dummyimage.com/64x64/" alt="...">
-							  </a>
-							</div>
-							<div class="media-body">
-							  <h4 class="media-heading text-primary">Media heading</h4>
-							  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores eius accusamus et eos architecto dolorum explicabo incidunt quod dicta dolor sunt, expedita veniam officia commodi, quam atque sed quidem nostrum?
-							</div>
-						</div>
-						<hr>
-						<div class="media">
-							<div class="media-left mr-3">
-							  <a href="#">
-								<img class="media-object" src="https://dummyimage.com/64x64/" alt="...">
-							  </a>
-							</div>
-							<div class="media-body">
-							  <h4 class="media-heading text-primary">Media heading</h4>
-							  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores eius accusamus et eos architecto dolorum explicabo incidunt quod dicta dolor sunt, expedita veniam officia commodi, quam atque sed quidem nostrum?
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
-
-			<div class="col-md-1"></div>
-
 		</div>
 	</div>
 	<?php include 'templates/footer.php' ?>
