@@ -10,189 +10,168 @@ $current_page = PageName();
         <div class="sidebar-content">
             
             <ul class="nav nav-primary">
-                <li class="nav-section">
-                    <span class="sidebar-mini-icon">
-                        <i class="fa fa-ellipsis-h"></i>
-                    </span>
-                    <h4 class="text-section">Menu</h4>
-                </li>
-                <li class="nav-item <?= $current_page=='dashboard.php' || $current_page=='resident_info.php' || $current_page=='purok_info.php'  ? 'active' : null ?>">
+                <!-- dashboard -->
+                <li class="nav-item <?= $current_page=='dashboard.php' ? 'active' : null ?>">
                     <a href="dashboard.php" >
                         <i class="fas fa-bullhorn"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-               </li>
-                <li class="nav-item <?= $current_page=='medicine.php' ? 'active' : null ?>">
-                    <a href="#medical_consumables" data-toggle="collapse" class="collapsed" aria-expanded="false">
-                        <i class="fas fa-medkit"></i>
-                            <p>Medical Consumables</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse <?= $current_page=='purok.php' || $current_page=='position.php'  || $current_page=='precinct.php' || $current_page=='chairmanship.php' || $current_page=='users.php' || $current_page=='support.php' || $current_page=='backup.php' ? 'show' : null ?>" id="medical_consumables">
-                        <ul class="nav nav-collapse">
-                            <li class="<?= $current_page=='purok.php' ? 'active' : null ?>">
-                                <a href="purok.php">
-                                    <i class="fas fa-pills"></i>
-                                    <p>Medicine</p>
-                                </a>
-                            </li>
-                            <li class="<?= $current_page=='purok.php' ? 'active' : null ?>">
-                                <a href="purok.php">
-                                    <i class="fas fa-medkit"></i>
-                                    <p>Medical Supplies</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                <!-- end of dashboard -->
 
-                <li class="nav-item <?= $current_page=='medicine.php' ? 'active' : null ?>">
-                    <a href="#manage_appointment" data-toggle="collapse" class="collapsed" aria-expanded="false">
-                        <i class="fas fa-stethoscope"></i>
-                            <p>Appointments</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse <?= $current_page=='purok.php' || $current_page=='position.php'  || $current_page=='precinct.php' || $current_page=='chairmanship.php' || $current_page=='users.php' || $current_page=='support.php' || $current_page=='backup.php' ? 'show' : null ?>" id="manage_appointment">
-                        <ul class="nav nav-collapse">
-                            <li class="<?= $current_page=='purok.php' ?  'active' : null ?>">
-                                <a href="purok.php">
-                                    <i class="fas fa-calendar-plus"></i>
-                                    <p>Make appointment</p>
-                                </a>
-                            </li>
-                            <li class="<?= $current_page=='purok.php' ? 'active' : null ?>">
-                                <a href="purok.php">
-                                    <i class="fas fa-plus"></i>
-                                    <p>Manage appointment</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
 
-                <li class="nav-item <?= $current_page=='officials.php' ? 'active' : null ?>">
-                    <a href="officials.php">
-                        <i class="fas fa-user-tie"></i>
-                        <p>Brgy Officials and Staff</p>
-                    </a>
-                </li>
-                <?php if(isset($_SESSION['username']) && $_SESSION['role']=='resident'): ?>
-                
-                </li>
-                <?php endif ?>
-                <?php if(isset($_SESSION['username']) && $_SESSION['role']=='administrator'): ?>
-                <li class="nav-item <?= $current_page=='resident.php' || $current_page=='generate_resident.php' ? 'active' : null ?>">
-                    <?php endif ?>
-                <?php if(isset($_SESSION['username']) && $_SESSION['role']=='staff'): ?>
-                    <li class="nav-section">
-                        <span class="sidebar-mini-icon">
-                            <i class="fa fa-ellipsis-h"></i>
-                        </span>
-                        <h4 class="text-section">System</h4>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#support" data-toggle="modal">
-                            <i class="fas fa-flag"></i>
-                            <p>Support</p>
-                        </a>
-                    </li>
-                <?php endif ?>
-                <?php if(isset($_SESSION['username']) && $_SESSION['role']=='resident'): ?>
-                    <li class="nav-section">
-                        <span class="sidebar-mini-icon">
-                            <i class="fa fa-ellipsis-h"></i>
-                        </span>
-                        <h4 class="text-section">System</h4>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#support" data-toggle="modal">
-                            <i class="fas fa-flag"></i>
-                            <p>Support</p>
-                        </a>
-                    </li>
-                <?php endif ?>
-                <?php if(isset($_SESSION['username']) && $_SESSION['role']=='administrator'): ?>
-                
-                </li>
+                <!-- medical consumables -->
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
                     </span>
-                    <h4 class="text-section">System</h4>
+                    <h4 class="text-section">MEDICAL CONSUMABLES</h4>
                 </li>
-                <li class="nav-item <?= $current_page=='purok.php' || $current_page=='position.php' || $current_page=='chairmanship.php' || $current_page=='precinct.php' ||$current_page=='users.php' || $current_page=='support.php' || $current_page=='backup.php' ? 'active' : null ?>">
-                    <a href="#settings" data-toggle="collapse" class="collapsed" aria-expanded="false">
-                        <i class="icon-wrench"></i>
-                            <p>Settings</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse <?= $current_page=='purok.php' || $current_page=='position.php'  || $current_page=='precinct.php' || $current_page=='chairmanship.php' || $current_page=='users.php' || $current_page=='support.php' || $current_page=='backup.php' ? 'show' : null ?>" id="settings">
-                        <ul class="nav nav-collapse">
-                            <li class="<?= $current_page=='purok.php' ? 'active' : null ?>">
-                                <a href="purok.php">
-                                    <span class="sub-item">Purok</span>
-                                </a>
-                            </li>
-                            
-                           
-                            <li class="<?= $current_page=='position.php' ? 'active' : null ?>">
-                                <a href="position.php">
-                                    <span class="sub-item">Positions</span>
-                                </a>
-                            </li>
-                            <li class="<?= $current_page=='chairmanship.php' ? 'active' : null ?>">
-                                <a href="chairmanship.php">
-                                    <span class="sub-item">Chairmanship</span>
-                                </a>
-                            </li>
-                            
-                            <?php if($_SESSION['role']=='staff'):?>
-                                <li>
-                                    <a href="#support" data-toggle="modal">
-                                        <span class="sub-item">Support</span>
-                                    </a>
-                                </li>
-                            <?php else: ?>
-                                <li class="<?= $current_page=='users.php' ? 'active' : null ?>">
-                                    <a href="users.php">
-                                        <span class="sub-item">Users</span>
-                                    </a>
-                                </li>
-                                <li class="<?= $current_page=='support.php' ? 'active' : null ?>">
-                                    <a href="support.php">
-                                        <span class="sub-item">Support</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="backup/backup.php">
-                                        <span class="sub-item">Backup</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#restore" data-toggle="modal">
-                                        <span class="sub-item">Restore</span>
-                                    </a>
-                                </li>
-                            <?php endif ?>
-                        </ul>
-                    </div>
+                        <?php if(isset($_SESSION['username']) && $_SESSION['role'] == 'resident'): ?>
+                        <!-- medicine -->
+                        <li class="nav-item <?= $current_page=='medicine-list.php' ? 'active' : null ?>">
+                            <a href="medicine-list.php" >
+                                <i class="fas fa-pills"></i>
+                                <p>Medicine</p>
+                            </a>
+                        </li>
+                        <?php endif ?>
+                        <?php if(isset($_SESSION['username']) && $_SESSION['role'] != 'resident'): ?>
+                        <!-- medicine inventory -->
+                        <li class="nav-item <?= $current_page=='medicine-inventory.php' ? 'active' : null ?>">
+                            <a href="medicine-inventory.php" >
+                                <i class="fas fa-pills"></i>
+                                <p>Medicine Inventory</p>
+                            </a>
+                        </li>
+                        <?php endif ?>
+                        <?php if(isset($_SESSION['username']) && $_SESSION['role'] == 'resident'): ?>
+                        <!-- medical supplies -->
+                        <li class="nav-item <?= $current_page=='medical-supplies.php' ? 'active' : null ?>">
+                            <a href="medical-supplies.php" >
+                                <i class="fas fa-medkit"></i>
+                                <p>Medical Supplies</p>
+                            </a>
+                        </li>
+                        <?php endif ?>
+                        <?php if(isset($_SESSION['username']) && $_SESSION['role'] != 'resident'): ?>
+                        <!-- medical supplies -->
+                        <li class="nav-item <?= $current_page=='medical-supplies-inventory.php' ? 'active' : null ?>">
+                            <a href="medical-supplies-inventory.php" >
+                                <i class="fas fa-medkit"></i>
+                                <p>Med Supplies Inventory</p>
+                            </a>
+                        </li>
+                        <?php endif ?>
+                <!-- end of medical consumables -->
+
+
+                
+                
+                <!-- appointments -->
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                    <h4 class="text-section">APPOINTMENTS</h4>
                 </li>
-                <?php endif ?>
-                <li class="nav-item <?= $current_page=='officials.php' ? 'active' : null ?>">
-                            <div class="fixed-bottom">
+                        <?php if(isset($_SESSION['username']) && $_SESSION['role']=='resident'): ?>
+                        <!-- create appointment -->
+                        <li class="nav-item <?= $current_page=='create-appointment.php' ? 'active' : null ?>">
+                            <a href="create-appointment.php" >
+                                <i class="fas fa-pills"></i>
+                                <p>Create Appointment</p>
+                            </a>
+                        </li>
+                        <?php endif ?>
+                        <!-- check appointment -->
+                        <?php if(isset($_SESSION['username']) && $_SESSION['role'] != 'resident'): ?>
+                        <li class="nav-item <?= $current_page=='check-appointment.php' ? 'active' : null ?>">
+                            <a href="check-appointment.php" >
+                                <i class="fas fa-medkit"></i>
+                                <p>Check Appointment</p>
+                            </a>
+                        </li>
+                        <?php endif ?>
+                <!-- end of appointments -->
+
+
+
+                <!-- our barangay -->
+                <?php if(isset($_SESSION['username']) && $_SESSION['role']=='resident'): ?>
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                    <h4 class="text-section">OUR BARANGAY</h4>
+                </li>
+                        <!-- staffs and officials -->
+                        <li class="nav-item <?= $current_page=='officials.php' ? 'active' : null ?>">
+                            <a href="officials.php" >
+                            <i class="fa fa-users"></i>
+                                <p>Staff and Officials</p>
+                            </a>
+                        </li>
+                        <!-- barangay info -->
+                        <li class="nav-item <?= $current_page=='barangay-info.php' ? 'active' : null ?>">
+                            <a href="barangay-info.php" >
+                                <i class="fa fa-info"></i>
+                                <p>Barangay Info</p>
+                            </a>
+                        </li>
+                        <?php endif ?>
+                <!-- end of barangay -->
+               
+
+                
+                <!-- system maintenance -->
+                <?php if(isset($_SESSION['username']) && $_SESSION['role']=='system-maintenance'): ?>
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                    <h4 class="text-section">SYSTEM MAINTENANCE</h4>
+                </li>
+                        <!-- resident -->
+                        <li class="nav-item <?= $current_page=='resident.php' ? 'active' : null ?>">
+                            <a href="resident.php" >
+                            <i class="fa fa-users"></i>
+                                <p>Residents</p>
+                            </a>
+                        </li>
+                        <!-- manage users -->
+                        <li class="nav-item <?= $current_page=='manage-user.php' ? 'active' : null ?>">
+                            <a href="manage-user.php" >
+                                <i class="fa fa-server"></i>
+                                <p>Manage Users</p>
+                            </a>
+                        </li>
+                        <!-- reports -->
+                        <li class="nav-item <?= $current_page=='download-reports.php' ? 'active' : null ?>">
+                            <a href="download-reports.php" >
+                                <i class="fa fa-print"></i>
+                                <p>Download Reports</p>
+                            </a>
+                        </li>
+                        <?php endif ?>
+                <!-- end of system maintenance -->
+
+
+                <!-- sign out -->
+                <li class="nav-item fixed-bottom">
+                    <div class="fixed-bottom">
                             <?php if(isset($_SESSION['role'])):?>
-                                <a class="see-all" href="model/logout.php">
+                                <a href="model/logout.php">
                                     <i class="icon-logout"></i>
                                     <p>Sign Out</p>
                                 </a>
-                            <?php else: ?>
-                                <a class="see-all" href="login.php">Sign In<i class="icon-login"></i> </a>
                             <?php endif ?>
-                            </div>
-                    </a>
+                    </div>
                 </li>
+                <!-- end of sign out -->
+
             </ul>
+
         </div>
     </div>
 </div>
