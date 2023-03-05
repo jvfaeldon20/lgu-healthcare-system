@@ -200,15 +200,62 @@
 								<div class="card">
 									<div class="card-header">
 										<div class="card-head-row">
-											<div class="card-title fw-bold">
+											<div class="card-title">
 												<h1>ANNOUNCEMENT</h1>
 											</div>
 										</div>
 									</div>
 									<div class="card-body">
-										<p><?= !empty($db_txt) ? $db_txt : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in ipsum id orci porta dapibus. Donec rutrum congue leo eget malesuada. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in, elementum id enim.' ?></p>
-										<div class="text-center">
-											<img class="img-fluid" src="<?= !empty($db_img) ? 'assets/uploads/'.$db_img : 'assets/img/bg-abstract.png' ?>" />
+										<div class="row">
+											<div class="col-md-3">
+												<img
+													src="http://via.placeholder.com/200x150"
+													alt="Trendy Pants and Shoes"
+													style="height:200px; width:100%"
+												/>
+											</div>
+											<div class="col-md-9">
+												<div class="card-body">
+													<h5 class="card-title text-primary">Card title</h5>
+													<p class="card-text">
+														This is a wider card with supporting text below as a natural lead-in to
+														additional content. This content is a little bit longer.
+
+														This is a wider card with supporting text below as a natural lead-in to
+														additional content. This content is a little bit longer.
+													</p>
+													<p class="card-text">
+														<small class="text-muted">Last updated 3 mins ago</small><br>
+														<a href="#" class="btn btn-sm btn-primary mt-2">Read more</a>
+													</p>
+												</div>
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-md-3">
+												<img
+													src="http://via.placeholder.com/200x150"
+													alt="Trendy Pants and Shoes"
+													style="height:200px; width:100%"
+												/>
+											</div>
+											<div class="col-md-9">
+												<div class="card-body">
+													<h5 class="card-title text-primary">Card title</h5>
+													<p class="card-text">
+														This is a wider card with supporting text below as a natural lead-in to
+														additional content. This content is a little bit longer.
+
+														This is a wider card with supporting text below as a natural lead-in to
+														additional content. This content is a little bit longer.
+													</p>
+													<p class="card-text">
+														<small class="text-muted">Last updated 3 mins ago</small><br>
+														<a href="#" class="btn btn-sm btn-primary mt-2">Read more</a>
+													</p>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
