@@ -18,7 +18,7 @@
 				$_SESSION['avatar'] = $row['avatar'];
 			}
 
-			$_SESSION['message'] = 'You have successfull logged in to Automated Brgy Healthcare System!';
+			$_SESSION['message'] = 'You have successfully logged as <b class="text-primary">'.$_SESSION['role'].'</b> user!';
 			$_SESSION['success'] = 'success';
 
             header('location: ../dashboard.php');
@@ -29,12 +29,8 @@
             header('location: ../login.php');
 		}
 	}else{
-		// $_SESSION['message'] = 'Username or password is empty!';
-		// $_SESSION['success'] = 'danger';
-        // header('location: ../login.php');
-		$username 	= $conn->real_escape_string("qwe");
-		$password	= sha1($conn->real_escape_string("qwe"));
-
+		$username 	= $conn->real_escape_string("resident");
+		$password	= sha1($conn->real_escape_string("resident"));
 		$query 		= "SELECT * FROM tbl_users WHERE username = '$username' AND password = '$password'";
 		$result 	= $conn->query($query);
 		
@@ -46,7 +42,7 @@
 				$_SESSION['avatar'] = $row['avatar'];
 			}
 
-			$_SESSION['message'] = 'You have successfull logged in to Automated Brgy Healthcare System!';
+			$_SESSION['message'] = 'You have successfully logged as general user!';
 			$_SESSION['success'] = 'success';
 
             header('location: ../dashboard.php');

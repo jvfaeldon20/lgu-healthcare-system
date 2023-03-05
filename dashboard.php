@@ -49,16 +49,11 @@
 				
 				<div class="page-inner mt--2">
 					
-					<?php if(isset($_SESSION['message'])): ?>
-						<div class="alert alert-<?= $_SESSION['success']; ?> <?= $_SESSION['success']=='danger' ? 'bg-danger text-light' : null ?>" role="alert">
+				<div class="alert alert-<?= $_SESSION['success']; ?> <?= $_SESSION['success']=='danger' ? 'bg-danger text-light' : null ?>" role="alert">
 							<?php echo $_SESSION['message']; ?>
 						</div>
-					<?php unset($_SESSION['message']); ?>
-					<?php endif ?>
 						
-					<?php if(isset($_SESSION['username']) && $_SESSION['role'] =='administrator'):?>
-						
-					<div class="row">
+						<div class="row">
 						<div class="col-md-4">
 							<div class="card card-stats card-primary card-round">
 								<div class="card-body">
@@ -192,8 +187,10 @@
 						<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<!-- <div class="card-head-row">
-										<div class="card-title fw-bold">Announcement</div> -->
+									<div class="card-head-row">
+										<div class="card-title fw-bold">
+											<h1>ANNOUNCEMENT</h1>
+										</div>
 									</div>
 								</div>
 								<div class="card-body">

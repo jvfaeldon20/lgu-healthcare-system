@@ -25,7 +25,7 @@
 															<i class="fas fa-briefcase-medical fa-2x me-3 mr-2 text-primary" ></i>
 															<span class="h1 fw-bold mb-0 ">Masili Health Service System</span>
 														</div>
-														<h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign in as member</h5>
+														<!-- <h5 class="fw-normal mb-3 pb-3 text-danger" style="letter-spacing: 1px;">Invalid Login. Try again!</h5> -->
 														<div class="form-outline mb-4">
 															<input name="username" class="form-control form-control-lg" />
 															<label class="form-label" for="username">Username</label>
