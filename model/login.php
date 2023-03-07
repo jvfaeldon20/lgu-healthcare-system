@@ -16,6 +16,7 @@
 				$_SESSION['username'] = $row['username'];
 				$_SESSION['role'] = $row['user_type'];
 				$_SESSION['avatar'] = $row['avatar'];
+				$_SESSION['display_name'] = $row['display_name'];
 			}
 
 			$_SESSION['message'] = 'You have successfully logged as <b class="text-primary">'.$_SESSION['role'].'</b> user!';
@@ -40,6 +41,7 @@
 				$_SESSION['username'] = $row['username'];
 				$_SESSION['role'] = $row['user_type'];
 				$_SESSION['avatar'] = $row['avatar'];
+				$_SESSION['display_name'] = $row['display_name'];
 			}
 
 			$_SESSION['message'] = 'You have successfully logged as general user!';
