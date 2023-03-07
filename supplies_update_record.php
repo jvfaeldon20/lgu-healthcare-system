@@ -1,21 +1,16 @@
 <?php include 'server/server.php' ?>
 <?php
     $id = $_POST['id'];
-    $generic_name = strtoupper($_POST['generic_name']);
+    $supply_name = strtoupper($_POST['supply_name']);
     $description = $_POST['description'];
     $category = $_POST['category'];
     $quantity = $_POST['quantity'];
-    $dosage = $_POST['dosage'];
-    $unit = $_POST['unit'];
 
-
-    $query = "UPDATE tbl_medicine 
-                SET generic_name='$generic_name',
+    $query = "UPDATE tbl_medical_supply 
+                SET supply_name='$supply_name',
                     description = '$description',
                     category= '$category',
-                    quantity='$quantity',
-                    dosage='$dosage',
-                    unit='$unit'
+                    quantity='$quantity'
               WHERE id='$id'";
     
     $result = $conn->query($query);
@@ -25,5 +20,5 @@
         $_SESSION['message'] = 'Successfully updated item!';
         $_SESSION['success'] = 'success';
     }
-    header('location: medicine.php');
+    header('location: supplies.php');
 ?>

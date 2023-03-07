@@ -35,8 +35,8 @@ $current_page = PageName();
                             </a>
                         </li>
                         <!-- medical supplies -->
-                        <li class="nav-item <?= $current_page=='medical-supplies.php' ? 'active' : null ?>">
-                            <a href="medical-supplies.php" >
+                        <li class="nav-item <?= $current_page=='supplies.php' || $current_page=='supplies_update_form.php' || $current_page=='supplies_add_form.php' ? 'active' : null ?>">
+                            <a href="supplies.php" >
                                 <i class="fas fa-medkit"></i>
                                 <p>Medical Supplies</p>
                             </a>

@@ -1,12 +1,12 @@
 <?php include 'server/server.php' ?>
 <?php 
     $id = $_GET["id"];
-	$query = "SELECT * FROM tbl_medicine WHERE id='$id'";
+	$query = "SELECT * FROM tbl_medical_supply WHERE id='$id'";
     $result = $conn->query($query);
 
-    $medicine = array();
+    $medical_supply = array();
 	while($row = $result->fetch_assoc()){
-		$medicine[] = $row; 
+		$medical_supply[] = $row; 
 	}
 ?>
 
@@ -14,7 +14,7 @@
 <html lang="en">
 <head>
 	<?php include 'templates/header.php' ?>
-	<title>Medicine - Masili Health Service System</title>
+	<title>Supplies - Masili Health Service System</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -32,46 +32,33 @@
 									<div class="card-head-row">
 										<div class="card-title">
 											<h1>
-                                            <a href="medicine.php" class="text-primary">MEDICINE</a> > <strong class="text-default">UPDATE</strong></h1>
+                                            <a href="supplies.php" class="text-primary">MEDICAL SUPPLY</a> > <strong class="text-default">UPDATE</strong></h1>
 										</div>
 									</div>
 								</div>
 								<div class="card-body">
-                                    <?php foreach($medicine as $row): ?>
-                                        <form method="POST" action="medicine_update_record.php">
+                                    <?php foreach($medical_supply as $row): ?>
+                                        <form method="POST" action="supplies_update_record.php">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="inputGenericName">Generic Name</label>
-                                                        <input type="text" class="form-control" id="inputGenericName" value="<?php echo $row['generic_name'] ?>" name="generic_name">
+                                                        <label for="inputSupplyName">Supply Name</label>
+                                                        <input type="text" class="form-control" id="inputSupplyName" value="<?php echo $row['supply_name'] ?>" name="supply_name">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="inputDescription">Description</label>
                                                         <textarea class="form-control" id="inputDescription" rows="3" name="description"><?php echo $row['description'] ?></textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="exampleFormControlSelect1">Category</label>
-                                                        <select class="form-control" id="exampleFormControlSelect1" name="category">
-                                                            <option value="ANALGESIC" <?=$row['category'] == 'ANALGESIC' ? ' selected="selected"' : '';?>>ANALGESIC</option>
-                                                            <option value="ANTIBIOTIC" <?=$row['category'] == 'ANTIBIOTIC' ? ' selected="selected"' : '';?>>ANTIBIOTIC</option>
-                                                            <option value="VITAMINS" <?=$row['category'] == 'VITAMINS' ? ' selected="selected"' : '';?>>VITAMINS</option>
+                                                        <label for="inputCategory">Category</label>
+                                                        <select class="form-control" id="inputCategory" name="category">
+                                                            <option value="PROTECTIVE GEAR" <?=$row['category'] == 'PROTECTIVE GEAR' ? ' selected="selected"' : '';?>>PROTECTIVE GEAR</option>
+                                                            <option value="FIRST AID" <?=$row['category'] == 'FIRST AID' ? ' selected="selected"' : '';?>>FIRST AID</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="inputQuantity">Quantity</label>
                                                         <input type="text" class="form-control" id="inputQuantity" name="quantity" value="<?php echo $row['quantity'] ?>">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputDosage">Dosage</label>
-                                                        <input type="text" class="form-control" id="inputDosage" name="dosage" value="<?php echo $row['dosage'] ?>">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlSelect1">Unit</label>
-                                                        <select class="form-control" id="exampleFormControlSelect1" name="unit">
-                                                            <option value="MG" <?=$row['unit'] == 'MG' ? ' selected="selected"' : '';?>>MG</option>
-                                                            <option value="ML" <?=$row['unit'] == 'ML' ? ' selected="selected"' : '';?>>ML</option>
-                                                            <option value="G" <?=$row['unit'] == 'G' ? ' selected="selected"' : '';?>>G</option>
-                                                        </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <button type="submit" class="btn btn-primary mt-2 mb-2">Update</button>

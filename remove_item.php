@@ -2,6 +2,7 @@
 <?php
     $delID = $_GET['id'];
     $table = $_GET['tbl'];
+    $returnPage = $_GET['page'];
     $query = "DELETE FROM $table WHERE id=$delID";
     $result = $conn->query($query);
     $_SESSION['message'] = 'Failed to remove item!';
@@ -10,5 +11,5 @@
         $_SESSION['message'] = 'Successfully removed item!';
         $_SESSION['success'] = 'success';
     }
-    header('location: medicine.php');
+    header('location: '.$returnPage.'.php');
 ?>

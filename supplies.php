@@ -25,6 +25,14 @@
 				<div class="page-inner">
 					<div class="row mt--2">
 						<div class="col-md-12">
+							<!-- action alert -->
+							<?php if(isset($_SESSION['message'])): ?>
+								<div class="alert alert-<?= $_SESSION['success']; ?> <?= $_SESSION['success']=='danger' ? 'bg-danger text-light' : null ?>" role="alert">
+									<?php echo $_SESSION['message']; ?>
+								</div>
+							<?php unset($_SESSION['message']); ?>
+							<?php endif ?>
+							<!-- end of action alert -->
 							<?php include 'templates/loading_screen.php' ?>
 							<div class="card">
 								<div class="card-header">
@@ -34,11 +42,11 @@
 										</div>
 										<?php if(isset($_SESSION['username']) && $_SESSION['role']!='resident'): ?>
 										<div class="card-tools">
-											<a href="#" class="btn btn-default btn-success">
+											<a href="supplies_add_form.php" class="btn btn-primary mr-1">
 												<i class="fa fa-plus mr-2"></i>
 												Supply
 											</a>
-											<button onclick="Export()" class="btn btn-default btn-default">
+											<button onclick="Export()" class="btn btn-default">
 												<i class="fa fa-download mr-2"></i>
 												Export to CSV
 											</button>
@@ -73,18 +81,11 @@
 																<span style="width:90px;" class="badge rounded-pill <?= $row['quantity']>0?'bg-success':'bg-danger' ?> text-white"><?= ucwords($row['quantity']>0?"Available":"Out of Stock") ?></span></td>
 															<?php if(isset($_SESSION['username']) && $_SESSION['role']!='resident'): ?>
 																<td>
-																	<a 
-																		type="button" 
-																		data-toggle="tooltip" 
-																		href="model/remove_blotter.php?id=<?= $row['id'] ?>" 
-																		onclick="return confirm('Are you sure you want to delete this Appointment?');" 
-																		class="btn btn-link btn-primary" 
-																		data-original-title="Update"
-																	>
-																			<i class="fa fa-edit"></i>
+																	<a href="supplies_update_form.php?id=<?= $row['id'] ?>" class="btn btn-link btn-primary" data-toggle="tooltip" data-placement="top" title="Update">
+																		<i class="fa fa-edit mr-2"></i>
 																	</a>
-																	<a type="button" data-toggle="tooltip" href="model/remove_blotter.php?id=<?= $row['id'] ?>" onclick="return confirm('Are you sure you want to delete this Appointment?');" class="btn btn-link btn-primary" data-original-title="Remove">
-																			<i class="fa fa-trash"></i>
+																	<a href="remove_item.php?id=<?= $row['id'] ?>&tbl=tbl_medical_supply&page=supplies" class="btn btn-link btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" data-toggle="tooltip" data-placement="top" title="Remove">
+																		<i class="fa fa-trash"></i>
 																	</a>
 																</td>
 															<?php endif ?>
