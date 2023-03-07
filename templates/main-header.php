@@ -5,7 +5,7 @@
     <div class="logo-header" data-background-color="blue">
         
         <a href="dashboard.php" class="logo">
-            <img src="assets/img/masili.png" alt="navbar brand" class="navbar-brand"> <span class="text-light ml-2 fw-bold" style="font-size:20px">BMHSMS</span>
+            <img src="assets/img/masili.png" alt="navbar brand" class="navbar-brand"><span class="text-light ml-2 fw-bold" style="font-size:20px">BMHSMS</span>
         </a>
         <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
