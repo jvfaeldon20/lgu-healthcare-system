@@ -1,6 +1,15 @@
 <?php include 'server/server.php' ?>
 <?php 
-	$query = "SELECT * FROM tbl_officials";
+	$query = "SELECT o.name     AS 'official',
+					c.title     AS 'chairmanship',
+					p.position  AS 'position',
+					o.termstart AS 'term_start',
+					o.status 	AS 'status',
+					p.order 	AS 'rank_order'
+FROM tbl_officials o LEFT JOIN tbl_chairmanship c 
+				   		    ON o.chairmanship = c.id
+		  			 LEFT JOIN tbl_position p
+			  			    ON o.position = p.id";
     $result = $conn->query($query);
 
     $officials = array();
@@ -13,7 +22,7 @@
 <html lang="en">
 <head>
 	<?php include 'templates/header.php' ?>
-	<title>Medicine - Masili Health Service System</title>
+	<title>Officials - Masili Health Service System</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -51,45 +60,44 @@
 									</div>
 								</div>
 								<div class="card-body">
-									<!-- medicine table -->
+									<!-- officials table -->
 									<div class="table-responsive">
-										<table id="blottertable" class="display table">
+										<table id="officials" class="display table">
 											<thead>
 												<tr class="text-primary">
 														<th scope="col">Brgy Official</th>
 														<th scope="col">Chairmanship</th>
 														<th scope="col">Position</th>
+														<th scope="col">Term Start</th>
 														<th scope="col">Status</th>
 												</tr>
 											</thead>
 											<tbody>
-												<?php foreach($medicine as $row): ?>
-														<tr>
-															<td><?= ucwords($row['generic_name']) ?></td>
-															<td><?= ucwords($row['description']) ?></td>
-															<td><?= ucwords($row['category']) ?></td>
-															<td><?= ucwords($row['quantity']) ?></td>
-															<td><?= ucwords($row['dosage']) ?></td>
-															<td><?= ucwords($row['unit']) ?></td>
-															<td class="text-center">
-																<span style="width:90px;" class="badge rounded-pill <?= $row['quantity']>0?'bg-success':'bg-danger' ?> text-white"><?= ucwords($row['quantity']>0?"Available":"Out of Stock") ?></span></td>
-															<?php if(isset($_SESSION['username']) && $_SESSION['role']!='resident'): ?>
-																<td>
-																	<a href="medicine_update_form.php?id=<?= $row['id'] ?>" class="btn btn-link btn-primary" data-toggle="tooltip" data-placement="top" title="Update">
-																		<i class="fa fa-edit mr-2"></i>
-																	</a>
-																	<a href="remove_item.php?id=<?= $row['id'] ?>&tbl=tbl_medicine&page=medicine" class="btn btn-link btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" data-toggle="tooltip" data-placement="top" title="Remove">
-																		<i class="fa fa-trash"></i>
-																	</a>
-																</td>
+												<?php foreach($officials as $row): ?>
+													<tr>
+														<td>
+															<div class="avatar avatar-sm">
+																<span class="avatar-title rounded-circle border border-white"><?= ucwords($row['official'][0]) ?></span>
+															</div>
+															<?= ucwords($row['official']) ?>
+														</td>
+														<td><?= ucwords($row['chairmanship']) ?></td>
+														<td><?= ucwords($row['position']) ?></td>
+														<td><?= ucwords($row['term_start']) ?></td>
+														<td>
+															<?php if($row['status']=='Active'): ?>
+																<span class="badge badge-success" style="width:90px;">Active</span>
+															<?php else: ?>
+																<span class="badge badge-danger" style="width:90px;">Inactive</span>
 															<?php endif ?>
-														</tr>
+														</td>
+													</tr>
 												<?php endforeach ?>
 											</tbody>
 										</table>
 									</div>
+									<!-- end of officials table -->
 								</div>
-								<!-- end of medicine table -->
 							</div>
 						</div>
 					</div>
@@ -107,7 +115,7 @@
 	<script src="assets/js/plugin/datatables/datatables.min.js"></script>
     <script>
         $(document).ready(function() {
-            var oTable = $('#blottertable').DataTable({
+            var oTable = $('#officials').DataTable({
 				"order": [[ 4, "asc" ]]
             });
 
@@ -126,10 +134,10 @@
         });
 
 		function Export(){
-			var conf = confirm("Export medicine to CSV?");
-			var stmt = "SELECT *, IF(quantity > 0,'available', 'out of stock') AS STATUS FROM tbl_medicine";
-			var tblHeader = 'No,Generic Name,Description,Category,Quantity,Dosage, Unit, Status';
-			var fileName = "medicine";
+			var conf = confirm("Export officials to CSV?");
+			var stmt = "SELECT o.name AS 'official',c.title AS 'chairmanship',p.position  AS 'position',o.termstart AS 'term_start',o.status AS 'status',p.order AS 'rank_order' FROM tbl_officials o LEFT JOIN tbl_chairmanship c ON o.chairmanship = c.id LEFT JOIN tbl_position p ON o.position = p.id";
+			var tblHeader = 'Brgy Official,Chairmanship,Position,Term Start,Status';
+			var fileName = "officials";
 			if(conf){
 				window.open(`export.php?query=${stmt}&tblHeader=${tblHeader}&fileName=${fileName}`, '_blank');
 			}

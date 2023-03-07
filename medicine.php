@@ -83,6 +83,7 @@
 															<td><?= ucwords($row['unit']) ?></td>
 															<td class="text-center">
 																<span style="width:90px;" class="badge rounded-pill <?= $row['quantity']>0?'bg-success':'bg-danger' ?> text-white"><?= ucwords($row['quantity']>0?"Available":"Out of Stock") ?></span></td>
+															</td>
 															<?php if(isset($_SESSION['username']) && $_SESSION['role']!='resident'): ?>
 																<td>
 																	<a href="medicine_update_form.php?id=<?= $row['id'] ?>" class="btn btn-link btn-primary" data-toggle="tooltip" data-placement="top" title="Update">
