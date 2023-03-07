@@ -27,25 +27,13 @@ $current_page = PageName();
                     </span>
                     <h4 class="text-section">MEDICAL CONSUMABLES</h4>
                 </li>
-                        <?php if(isset($_SESSION['username']) && $_SESSION['role'] == 'resident'): ?>
                         <!-- medicine -->
-                        <li class="nav-item <?= $current_page=='medicine-list.php' ? 'active' : null ?>">
-                            <a href="medicine-list.php" >
+                        <li class="nav-item <?= $current_page=='medicine.php' || $current_page=='medicine_add_form.php'  || $current_page=='medicine_update_form.php' ? 'active' : null ?>">
+                            <a href="medicine.php" >
                                 <i class="fas fa-pills"></i>
                                 <p>Medicine</p>
                             </a>
                         </li>
-                        <?php endif ?>
-                        <?php if(isset($_SESSION['username']) && $_SESSION['role'] != 'resident'): ?>
-                        <!-- medicine inventory -->
-                        <li class="nav-item <?= $current_page=='medicine-inventory.php' ? 'active' : null ?>">
-                            <a href="medicine-inventory.php" >
-                                <i class="fas fa-pills"></i>
-                                <p>Medicine Inventory</p>
-                            </a>
-                        </li>
-                        <?php endif ?>
-                        <?php if(isset($_SESSION['username']) && $_SESSION['role'] == 'resident'): ?>
                         <!-- medical supplies -->
                         <li class="nav-item <?= $current_page=='medical-supplies.php' ? 'active' : null ?>">
                             <a href="medical-supplies.php" >
@@ -53,16 +41,6 @@ $current_page = PageName();
                                 <p>Medical Supplies</p>
                             </a>
                         </li>
-                        <?php endif ?>
-                        <?php if(isset($_SESSION['username']) && $_SESSION['role'] != 'resident'): ?>
-                        <!-- medical supplies -->
-                        <li class="nav-item <?= $current_page=='medical-supplies-inventory.php' ? 'active' : null ?>">
-                            <a href="medical-supplies-inventory.php" >
-                                <i class="fas fa-medkit"></i>
-                                <p>Med Supplies Inventory</p>
-                            </a>
-                        </li>
-                        <?php endif ?>
                 <!-- end of medical consumables -->
 
 
@@ -75,25 +53,13 @@ $current_page = PageName();
                     </span>
                     <h4 class="text-section">APPOINTMENTS</h4>
                 </li>
-                        <?php if(isset($_SESSION['username']) && $_SESSION['role']=='resident'): ?>
                         <!-- create appointment -->
-                        <li class="nav-item <?= $current_page=='create-appointment.php' ? 'active' : null ?>">
-                            <a href="create-appointment.php" >
+                        <li class="nav-item <?= $current_page=='appointment.php' ? 'active' : null ?>">
+                            <a href="appointment.php" >
                                 <i class="fas fa-pills"></i>
-                                <p>Create Appointment</p>
+                                <p>Appointment</p>
                             </a>
                         </li>
-                        <?php endif ?>
-                        <!-- check appointment -->
-                        <?php if(isset($_SESSION['username']) && $_SESSION['role'] != 'resident'): ?>
-                        <li class="nav-item <?= $current_page=='check-appointment.php' ? 'active' : null ?>">
-                            <a href="check-appointment.php" >
-                                <i class="fas fa-medkit"></i>
-                                <p>Check Appointment</p>
-                            </a>
-                        </li>
-                        <?php endif ?>
-                <!-- end of appointments -->
 
 
 
@@ -159,14 +125,12 @@ $current_page = PageName();
 
                 <!-- sign out -->
                 <li class="nav-item fixed-bottom">
-                    <div class="fixed-bottom">
-                            <?php if(isset($_SESSION['role'])):?>
-                                <a href="model/logout.php">
-                                    <i class="icon-logout"></i>
-                                    <p>Sign Out</p>
-                                </a>
-                            <?php endif ?>
-                    </div>
+                        <?php if(isset($_SESSION['role'])):?>
+                            <a href="model/logout.php">
+                                <i class="icon-logout"></i>
+                                <p>Logged as <span class='text-primary'><?php echo $_SESSION['username']; ?></span></p>
+                            </a>
+                        <?php endif ?>
                 </li>
                 <!-- end of sign out -->
 
