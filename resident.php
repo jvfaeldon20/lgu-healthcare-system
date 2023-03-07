@@ -20,60 +20,31 @@
 <html lang="en">
 <head>
 	<?php include 'templates/header.php' ?>
-	<title>Resident Information -  Barangay Management System</title>
+	<title>Resident - Masili Health Service System</title>
 </head>
 <body>
-<?php include 'templates/loading_screen.php' ?>
 	<div class="wrapper">
-		<!-- Main Header -->
 		<?php include 'templates/main-header.php' ?>
-		<!-- End Main Header -->
-
-		<!-- Sidebar -->
 		<?php include 'templates/sidebar.php' ?>
-		<!-- End Sidebar -->
 
 		<div class="main-panel">
 			<div class="content">
-				<div class="panel-header bg-primary-gradient">
-					<div class="page-inner">
-						<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
-							<div>
-								<h2 class="text-white fw-bold">Residents</h2>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="page-inner">
 					<div class="row mt--2">
 						<div class="col-md-12">
-
-                            <?php if(isset($_SESSION['message'])): ?>
-                                <div class="alert alert-<?php echo $_SESSION['success']; ?> <?= $_SESSION['success']=='danger' ? 'bg-danger text-light' : null ?>" role="alert">
-                                    <?php echo $_SESSION['message']; ?>
-                                </div>
-                            <?php unset($_SESSION['message']); ?>
-                            <?php endif ?>
-
                             <div class="card">
-								<div class="card-header">
+                                <div class="card-header">
 									<div class="card-head-row">
-										<div class="card-title">Resident Information</div>
-                                        <?php if(isset($_SESSION['username']) && $_SESSION['role'] =='administrator'):?>
-										<div class="card-tools">
-											<a href="#add" data-toggle="modal" class="btn btn-info btn-border btn-round btn-sm">
-												<i class="fa fa-plus"></i>
-												Resident
-											</a>
-                                            
-                                        <?php endif ?>
+										<div class="card-title text-primary">
+											<h1>RESIDENTS</h1>
+										</div>
 									</div>
 								</div>
 								<div class="card-body">
 									<div class="table-responsive">
 										<table id="residenttable" class="display table table-striped">
 											<thead>
-												<tr>
+												<tr class="text-primary">
 													<th scope="col">Fullname</th>
                                                     <th scope="col">Philhealth ID</th>
 													<th scope="col">Birthdate</th>
@@ -139,24 +110,6 @@
 													<?php $no++; endforeach ?>
 												<?php endif ?>
 											</tbody>
-											<tfoot>
-												<tr>
-                                                    <th scope="col">Fullname</th>
-                                                    <th scope="col">Philhealth ID</th>
-													<th scope="col">Birthdate</th>
-													<th scope="col">Age</th>
-													<th scope="col">Civil Status</th>
-                                                    <th scope="col">Gender</th>
-													<th scope="col">Purok</th>
-                                                    <?php if(isset($_SESSION['username'])):?>
-                                                        <?php if($_SESSION['role']=='administrator'):?>
-													<th scope="col">Voter Status</th>
-                                                    
-													<th scope="col">Action</th>
-                                                    <?php endif ?>
-                                                    <?php endif ?>
-												</tr>
-											</tfoot>
 										</table>
 									</div>
 								</div>
