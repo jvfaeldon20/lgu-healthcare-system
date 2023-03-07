@@ -24,60 +24,22 @@
 	<title>Brg Officials and Staff -  Barangay Management System</title>
 </head>
 <body>
-	<?php include 'templates/loading_screen.php' ?>
-
 	<div class="wrapper">
-		<!-- Main Header -->
 		<?php include 'templates/main-header.php' ?>
-		<!-- End Main Header -->
-
-		<!-- Sidebar -->
 		<?php include 'templates/sidebar.php' ?>
-		<!-- End Sidebar -->
  
 		<div class="main-panel">
 			<div class="content">
-				<div class="panel-header bg-primary-gradient">
-					<div class="page-inner">
-						<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
-							<div>
-								<h2 class="text-white fw-bold">Barangay Officials</h2>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="page-inner">
-					<?php if(isset($_SESSION['message'])): ?>
-							<div class="alert alert-<?php echo $_SESSION['success']; ?> <?= $_SESSION['success']=='danger' ? 'bg-danger text-light' : null ?>" role="alert">
-								<?php echo $_SESSION['message']; ?>
-							</div>
-						<?php unset($_SESSION['message']); ?>
-						<?php endif ?>
-					<div class="row mt--2">
-						
+					<div class="row">
 						<div class="col-md-12">
-							<div class="card">
-								<div class="card-body">
-									<div class="d-flex flex-wrap pb-2 justify-content-between">
-										<div class="px-2 pb-2 pb-md-0 text-center">
-											<img src="assets/uploads/<?= $brgy_logo ?>" class="img-fluid" width="100">
-										</div>
-										<div class="px-2 pb-2 pb-md-0 text-center">
-											<h2 class="fw-bold mt-3"><?= ucwords($brgy) ?></h2>
-											<h2 class="fw-bold mt-3"><?= ucwords($town) ?></h2>
-											<h4 class="fw-bold mt-3"><i><?= ucwords($province) ?></i></h4>
-										</div>
-										<div class="px-2 pb-2 pb-md-0 text-center">
-											<img src="assets/uploads/<?= $city_logo ?>" class="img-fluid" width="100">
-										</div>
-										
-									</div>
-								</div>
-							</div>
+							<?php include 'templates/loading_screen.php' ?>
 							<div class="card">
 								<div class="card-header">
 									<div class="card-head-row">
-										<div class="card-title">Current Barangay Officials</div>
+										<div class="card-title text-primary">
+											<h1>STAFF AND OFFICIALS</h1>
+										</div>
 										<?php if($_SESSION['role']=='administrator'):?>
 											<div class="card-tools">
 												<a href="#add" data-toggle="modal" class="btn btn-info btn-border btn-round btn-sm">
@@ -92,7 +54,7 @@
 									<div class="table-responsive">
 										<table class="table table-striped">
 											<thead>
-												<tr>
+												<tr class="text-primary">
 													<th scope="col">Fullname</th>
 													<th scope="col">Chairmanship</th>
 													<th scope="col">Position</th>
@@ -140,20 +102,6 @@
 													</tr>
 												<?php endif ?>
 											</tbody>
-											<tfoot>
-												<tr>
-													<th scope="col">Fullname</th>
-													<th scope="col">Chairmanship</th>
-													<th scope="col">Position</th>
-													<?php if(isset($_SESSION['username'])):?>
-														<?php if($_SESSION['role']=='administrator'):?>
-															<th>Status</th>
-															<th>Action</th>
-														<?php endif ?>
-														
-													<?php endif?>
-												</tr>
-											</tfoot>
 										</table>
 									</div>
 								</div>
