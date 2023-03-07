@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <?php include 'templates/header.php' ?>
-	<title>Login -  Barangay Management System</title>
+	<title>Login - Masili Health Service System</title>
 
 </head>
 <body class="login">
