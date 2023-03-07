@@ -5,7 +5,7 @@
     $result = $conn->query($query);
     $resident = $result->fetch_assoc();
 
-    $query1 = "SELECT * FROM tblofficials JOIN tblposition ON tblofficials.position=tblposition.id WHERE tblposition.position NOT IN ('SK Chairrman','Secretary','Treasurer')
+    $query1 = "SELECT * FROM tbl_officials JOIN tbl_position ON tbl_officials.position=tbl_position.id WHERE tbl_position.position NOT IN ('SK Chairrman','Secretary','Treasurer')
                 AND `status`='Active' ORDER BY `order` ASC";
     $result1 = $conn->query($query1);
     $officials = array();
@@ -13,9 +13,9 @@
 		$officials[] = $row; 
 	}
 
-    $c = "SELECT * FROM tblofficials JOIN tblposition ON tblofficials.position=tblposition.id WHERE tblposition.position='Captain'";
+    $c = "SELECT * FROM tbl_officials JOIN tbl_position ON tbl_officials.position=tbl_position.id WHERE tbl_position.position='Captain'";
     $captain = $conn->query($c)->fetch_assoc();
-    $s = "SELECT * FROM tblofficials JOIN tblposition ON tblofficials.position=tblposition.id WHERE tblposition.position='Secretary'";
+    $s = "SELECT * FROM tbl_officials JOIN tbl_position ON tbl_officials.position=tbl_position.id WHERE tbl_position.position='Secretary'";
     $sec = $conn->query($s)->fetch_assoc();
 ?>
 <!DOCTYPE html>

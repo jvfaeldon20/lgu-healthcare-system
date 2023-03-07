@@ -5,7 +5,7 @@
     $result = $conn->query($query);
     $permit = $result->fetch_assoc();
 
-    $c = "SELECT * FROM tblofficials JOIN tblposition ON tblofficials.position=tblposition.id WHERE tblposition.position='Captain'";
+    $c = "SELECT * FROM tbl_officials JOIN tbl_position ON tbl_officials.position=tbl_position.id WHERE tbl_position.position='Captain'";
     $captain = $conn->query($c)->fetch_assoc();
 ?>
 <!DOCTYPE html>

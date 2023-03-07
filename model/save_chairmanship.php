@@ -11,7 +11,7 @@
 
     if(!empty($title)){
 
-        $insert  = "INSERT INTO tblchairmanship (`title`) VALUES ('$title')";
+        $insert  = "INSERT INTO tbl_chairmanship (`title`) VALUES ('$title')";
         $result  = $conn->query($insert);
 
         if($result === true){

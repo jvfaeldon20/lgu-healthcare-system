@@ -14,7 +14,7 @@
 		$db_img		= $row['image'];
 	}
 
-	$pos_q = "SELECT * FROM tblposition ORDER BY `order` ASC";
+	$pos_q = "SELECT * FROM tbl_position ORDER BY `order` ASC";
     $pos_r = $conn->query($pos_q);
 
     $position = array();
@@ -22,7 +22,7 @@
 		$position[] = $row; 
 	}
 
-	$chair_q = "SELECT * FROM tblchairmanship";
+	$chair_q = "SELECT * FROM tbl_chairmanship";
 	$res_q = $conn->query($chair_q);
 
 	$chair = array();

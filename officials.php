@@ -1,244 +1,139 @@
 <?php include 'server/server.php' ?>
 <?php 
-	if(isset($_SESSION['role'])){
-		if($_SESSION['role'] =='staff'){
-			$off_q = "SELECT *,tblofficials.id as id, tblposition.id as pos_id,tblchairmanship.id as chair_id FROM tblofficials JOIN tblposition ON tblposition.id=tblofficials.position JOIN tblchairmanship ON tblchairmanship.id=tblofficials.chairmanship WHERE `status`='Active' ORDER BY tblposition.order ASC ";
-		}else{
-			$off_q = "SELECT *,tblofficials.id as id, tblposition.id as pos_id,tblchairmanship.id as chair_id FROM tblofficials JOIN tblposition ON tblposition.id=tblofficials.position JOIN tblchairmanship ON tblchairmanship.id=tblofficials.chairmanship ORDER BY tblposition.order ASC, `status` ASC ";
-		}
-	}else{
-		$off_q = "SELECT *,tblofficials.id as id, tblposition.id as pos_id,tblchairmanship.id as chair_id FROM tblofficials JOIN tblposition ON tblposition.id=tblofficials.position JOIN tblchairmanship ON tblchairmanship.id=tblofficials.chairmanship WHERE `status`='Active' ORDER BY tblposition.order ASC ";
-	}
-	
-	$res_o = $conn->query($off_q);
+	$query = "SELECT * FROM tbl_officials";
+    $result = $conn->query($query);
 
-	$official = array();
-	while($row = $res_o->fetch_assoc()){
-		$official[] = $row; 
+    $officials = array();
+	while($row = $result->fetch_assoc()){
+		$officials[] = $row; 
 	}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<?php include 'templates/header.php' ?>
-	<title>Brg Officials and Staff -  Barangay Management System</title>
+	<title>Medicine - Masili Health Service System</title>
 </head>
 <body>
 	<div class="wrapper">
 		<?php include 'templates/main-header.php' ?>
 		<?php include 'templates/sidebar.php' ?>
- 
+
 		<div class="main-panel">
 			<div class="content">
 				<div class="page-inner">
-					<div class="row">
+					<div class="row mt--2">
 						<div class="col-md-12">
+							<!-- action alert -->
+							<?php if(isset($_SESSION['message'])): ?>
+								<div class="alert alert-<?= $_SESSION['success']; ?> <?= $_SESSION['success']=='danger' ? 'bg-danger text-light' : null ?>" role="alert">
+									<?php echo $_SESSION['message']; ?>
+								</div>
+							<?php unset($_SESSION['message']); ?>
+							<?php endif ?>
+							<!-- end of action alert -->
 							<?php include 'templates/loading_screen.php' ?>
 							<div class="card">
 								<div class="card-header">
 									<div class="card-head-row">
 										<div class="card-title text-primary">
-											<h1>STAFF AND OFFICIALS</h1>
+											<h1>BARANGAY OFFICIALS</h1>
 										</div>
-										<?php if($_SESSION['role']=='administrator'):?>
-											<div class="card-tools">
-												<a href="#add" data-toggle="modal" class="btn btn-info btn-border btn-round btn-sm">
-													<i class="fa fa-plus"></i>
-													Official
-												</a>
-											</div>
+										<?php if(isset($_SESSION['username']) && $_SESSION['role']!='resident'): ?>
+										<div class="card-tools">
+											<button onclick="Export()" class="btn btn-default btn-default">
+												<i class="fa fa-download mr-2"></i>
+												Export to CSV
+											</button>
+										</div>
 										<?php endif?>
 									</div>
 								</div>
 								<div class="card-body">
+									<!-- medicine table -->
 									<div class="table-responsive">
-										<table class="table table-striped">
+										<table id="blottertable" class="display table">
 											<thead>
 												<tr class="text-primary">
-													<th scope="col">Fullname</th>
-													<th scope="col">Chairmanship</th>
-													<th scope="col">Position</th>
-													<?php if(isset($_SESSION['username'])):?>
-														<?php if($_SESSION['role']=='administrator'):?>
-															<th>Status</th>
-															<th>Action</th>
-														<?php endif ?>
-														
-													<?php endif?>
+														<th scope="col">Brgy Official</th>
+														<th scope="col">Chairmanship</th>
+														<th scope="col">Position</th>
+														<th scope="col">Status</th>
 												</tr>
 											</thead>
 											<tbody>
-												<?php if(!empty($official)): ?>
-													<?php foreach($official as $row): ?>
+												<?php foreach($medicine as $row): ?>
 														<tr>
-															<td class="text-uppercase"><?= $row['name'] ?></td>
-															<td><?= $row['title'] ?></td>
-															<td><?= $row['position'] ?></td>
-															<?php if(isset($_SESSION['username'])):?>
-																<?php if($_SESSION['role']=='administrator'):?>
-																	<td><?= $row['status']=='Active' ? '<span class="badge badge-primary">Active</span>' :'<span class="badge badge-danger">Inactive</span>' ?></td>
-																<?php endif ?>
-																<?php if($_SESSION['role']=='administrator'):?>
+															<td><?= ucwords($row['generic_name']) ?></td>
+															<td><?= ucwords($row['description']) ?></td>
+															<td><?= ucwords($row['category']) ?></td>
+															<td><?= ucwords($row['quantity']) ?></td>
+															<td><?= ucwords($row['dosage']) ?></td>
+															<td><?= ucwords($row['unit']) ?></td>
+															<td class="text-center">
+																<span style="width:90px;" class="badge rounded-pill <?= $row['quantity']>0?'bg-success':'bg-danger' ?> text-white"><?= ucwords($row['quantity']>0?"Available":"Out of Stock") ?></span></td>
+															<?php if(isset($_SESSION['username']) && $_SESSION['role']!='resident'): ?>
 																<td>
-																	<a type="button" href="#edit" data-toggle="modal" class="btn btn-link btn-primary" 
-																		title="Edit Position" onclick="editOfficial(this)" data-id="<?= $row['id'] ?>" data-name="<?= $row['name'] ?>" 
-																		data-chair="<?= $row['chair_id'] ?>" data-pos="<?= $row['pos_id'] ?>" data-start="<?= $row['termstart'] ?>" 
-																		data-end="<?= $row['termend'] ?>" data-status="<?= $row['status'] ?>" >
-																		<i class="fa fa-edit"></i>
+																	<a href="medicine_update_form.php?id=<?= $row['id'] ?>" class="btn btn-link btn-primary" data-toggle="tooltip" data-placement="top" title="Update">
+																		<i class="fa fa-edit mr-2"></i>
 																	</a>
-																	<?php if($_SESSION['role']=='administrator'):?>
-																	<a type="button" data-toggle="tooltip" href="model/remove_official.php?id=<?= $row['id'] ?>" onclick="return confirm('Are you sure you want to delete this official?');" class="btn btn-link btn-danger" data-original-title="Remove">
-																		<i class="fa fa-times"></i>
+																	<a href="remove_item.php?id=<?= $row['id'] ?>&tbl=tbl_medicine&page=medicine" class="btn btn-link btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" data-toggle="tooltip" data-placement="top" title="Remove">
+																		<i class="fa fa-trash"></i>
 																	</a>
-																	<?php endif ?>
 																</td>
-																<?php endif ?>
-															<?php endif?>
+															<?php endif ?>
 														</tr>
-													<?php endforeach ?>
-												<?php else: ?>
-													<tr>
-														<td colspan="3" class="text-center">No Available Data</td>
-													</tr>
-												<?php endif ?>
+												<?php endforeach ?>
 											</tbody>
 										</table>
 									</div>
 								</div>
+								<!-- end of medicine table -->
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			
-			 <!-- Modal -->
-			 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Create Official</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" action="model/save_official.php" >
-                                <div class="form-group">
-                                    <label>Fullname</label>
-                                    <input type="text" class="form-control" placeholder="Enter Fullname" name="name" required>
-                                </div>
-								<div class="form-group">
-                                    <label>Chairmanship</label>
-                                    <select class="form-control" id="pillSelect" required name="chair">
-                                        <option disabled selected>Select Official Chairmanship</option>
-                                        <?php foreach($chair as $row): ?>
-											<option value="<?= $row['id'] ?>"><?= $row['title'] ?></option>
-										<?php endforeach ?>
-                                    </select>
-                                </div>
-								<div class="form-group">
-                                    <label>Position</label>
-                                    <select class="form-control" id="pillSelect" required name="position">
-                                        <option disabled selected>Select Official Position</option>
-										<?php foreach($position as $row): ?>
-											<option value="<?= $row['id'] ?>">Brgy. <?= $row['position'] ?></option>
-										<?php endforeach ?>
-                                    </select>
-                                </div>
-								<div class="form-group">
-                                    <label>Term Start</label>
-                                    <input type="date" class="form-control" name="start" required>
-                                </div>
-								<div class="form-group">
-                                    <label>Term End</label>
-                                    <input type="date" class="form-control" name="end" required>
-                                </div>
-								<div class="form-group">
-                                    <label>Status</label>
-                                    <select class="form-control" id="pillSelect" required name="status">
-                                        <option value="Active">Active</option>
-                                        <option value="Inactive">Inactive</option>
-                                    </select>
-                                </div>
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <input type="hidden" id="pos_id" name="id">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Create</button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-			<!-- Modal -->
-			<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Official</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" action="model/edit_official.php" >
-                                <div class="form-group">
-                                    <label>Fullname</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Enter Fullname" name="name" required>
-                                </div>
-								<div class="form-group">
-                                    <label>Chairmanship</label>
-                                    <select class="form-control" id="chair" required name="chair">
-                                        <option disabled selected>Select Official Chairmanship</option>
-                                        <?php foreach($chair as $row): ?>
-											<option value="<?= $row['id'] ?>"><?= $row['title'] ?></option>
-										<?php endforeach ?>
-                                    </select>
-                                </div>
-								<div class="form-group">
-                                    <label>Position</label>
-                                    <select class="form-control" id="position" required name="position">
-                                        <option disabled selected>Select Official Position</option>
-										<?php foreach($position as $row): ?>
-											<option value="<?= $row['id'] ?>">Brgy. <?= $row['position'] ?></option>
-										<?php endforeach ?>
-                                    </select>
-                                </div>
-								<div class="form-group">
-                                    <label>Term Start</label>
-                                    <input type="date" class="form-control" id="start" name="start" required>
-                                </div>
-								<div class="form-group">
-                                    <label>Term End</label>
-                                    <input type="date" class="form-control" id="end" name="end" required>
-                                </div>
-								<div class="form-group">
-                                    <label>Status</label>
-                                    <select class="form-control" id="status" required name="status">
-                                        <option value="Active">Active</option>
-                                        <option value="Inactive">Inactive</option>
-                                    </select>
-                                </div>
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <input type="hidden" id="off_id" name="id">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Update</button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
 			<!-- Main Footer -->
 			<?php include 'templates/main-footer.php' ?>
 			<!-- End Main Footer -->
 			
 		</div>
-		
 	</div>
+	
 	<?php include 'templates/footer.php' ?>
+	<script src="assets/js/plugin/datatables/datatables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var oTable = $('#blottertable').DataTable({
+				"order": [[ 4, "asc" ]]
+            });
+
+			$("#activeCase").click(function(){
+				var textSelected = 'Active';
+				oTable.columns(4).search(textSelected).draw();
+			});
+			$("#settledCase").click(function(){
+				var textSelected = 'Settled';
+				oTable.columns(4).search(textSelected).draw();
+			});
+			$("#scheduledCase").click(function(){
+				var textSelected = 'Scheduled';
+				oTable.columns(4).search(textSelected).draw();
+			});
+        });
+
+		function Export(){
+			var conf = confirm("Export medicine to CSV?");
+			var stmt = "SELECT *, IF(quantity > 0,'available', 'out of stock') AS STATUS FROM tbl_medicine";
+			var tblHeader = 'No,Generic Name,Description,Category,Quantity,Dosage, Unit, Status';
+			var fileName = "medicine";
+			if(conf){
+				window.open(`export.php?query=${stmt}&tblHeader=${tblHeader}&fileName=${fileName}`, '_blank');
+			}
+		}
+    </script>
 </body>
 </html>

@@ -12,7 +12,7 @@
 
     if(!empty($pos) && !empty($order)){
 
-        $insert  = "INSERT INTO tblposition (`position`, `order`) VALUES ('$pos', $order)";
+        $insert  = "INSERT INTO tbl_position (`position`, `order`) VALUES ('$pos', $order)";
         $result  = $conn->query($insert);
 
         if($result === true){

@@ -2,12 +2,12 @@
 <?php 
 	if(isset($_SESSION['role'])){
 		if($_SESSION['role'] =='staff'){
-			$off_q = "SELECT *,tblofficials.id as id, tblposition.id as pos_id,tblchairmanship.id as chair_id FROM tblofficials JOIN tblposition ON tblposition.id=tblofficials.position JOIN tblchairmanship ON tblchairmanship.id=tblofficials.chairmanship WHERE `status`='Active' ORDER BY tblposition.order ASC ";
+			$off_q = "SELECT *,tblofficials.id as id, tbl_position.id as pos_id,tbl_chairmanship.id as chair_id FROM tblofficials JOIN tbl_position ON tbl_position.id=tblofficials.position JOIN tbl_chairmanship ON tbl_chairmanship.id=tblofficials.chairmanship WHERE `status`='Active' ORDER BY tbl_position.order ASC ";
 		}else{
-			$off_q = "SELECT *,tblofficials.id as id, tblposition.id as pos_id,tblchairmanship.id as chair_id FROM tblofficials JOIN tblposition ON tblposition.id=tblofficials.position JOIN tblchairmanship ON tblchairmanship.id=tblofficials.chairmanship ORDER BY tblposition.order ASC, `status` ASC ";
+			$off_q = "SELECT *,tblofficials.id as id, tbl_position.id as pos_id,tbl_chairmanship.id as chair_id FROM tblofficials JOIN tbl_position ON tbl_position.id=tblofficials.position JOIN tbl_chairmanship ON tbl_chairmanship.id=tblofficials.chairmanship ORDER BY tbl_position.order ASC, `status` ASC ";
 		}
 	}else{
-		$off_q = "SELECT *,tblofficials.id as id, tblposition.id as pos_id,tblchairmanship.id as chair_id FROM tblofficials JOIN tblposition ON tblposition.id=tblofficials.position JOIN tblchairmanship ON tblchairmanship.id=tblofficials.chairmanship WHERE `status`='Active' ORDER BY tblposition.order ASC ";
+		$off_q = "SELECT *,tblofficials.id as id, tbl_position.id as pos_id,tbl_chairmanship.id as chair_id FROM tblofficials JOIN tbl_position ON tbl_position.id=tblofficials.position JOIN tbl_chairmanship ON tbl_chairmanship.id=tblofficials.chairmanship WHERE `status`='Active' ORDER BY tbl_position.order ASC ";
 	}
 	
 	$res_o = $conn->query($off_q);

@@ -1,6 +1,6 @@
 <?php include 'server/server.php' ?>
 <?php
-    $query = "SELECT * FROM tblposition ORDER BY `order`";
+    $query = "SELECT * FROM tbl_position ORDER BY `order`";
     $result = $conn->query($query);
 
     $position = array();

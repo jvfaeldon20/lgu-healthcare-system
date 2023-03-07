@@ -10,7 +10,7 @@
 	$id 	= $conn->real_escape_string($_GET['id']);
 
 	if($id != ''){
-		$query 		= "DELETE FROM tblchairmanship WHERE id = '$id'";
+		$query 		= "DELETE FROM tbl_chairmanship WHERE id = '$id'";
 		
 		$result 	= $conn->query($query);
 		

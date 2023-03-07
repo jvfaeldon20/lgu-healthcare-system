@@ -13,7 +13,7 @@
 
 	if(!empty($id)){
 
-		$query 		= "UPDATE tblposition SET `position` = '$pos', `order`=$order WHERE id=$id;";	
+		$query 		= "UPDATE tbl_position SET `position` = '$pos', `order`=$order WHERE id=$id;";	
 		$result 	= $conn->query($query);
 
 		if($result === true){

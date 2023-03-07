@@ -1,6 +1,6 @@
 <?php include 'server/server.php' ?>
 <?php
-$query = "SELECT * FROM tblchairmanship";
+$query = "SELECT * FROM tbl_chairmanship";
 $result = $conn->query($query);
 
 $chair = array();

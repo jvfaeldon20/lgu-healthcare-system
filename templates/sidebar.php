@@ -71,11 +71,11 @@ $current_page = PageName();
                     </span>
                     <h4 class="text-section">OUR BARANGAY</h4>
                 </li>
-                        <!-- staffs and officials -->
+                        <!-- barangay officials -->
                         <li class="nav-item <?= $current_page=='officials.php' ? 'active' : null ?>">
                             <a href="officials.php" >
                             <i class="fa fa-users"></i>
-                                <p>Staff and Officials</p>
+                                <p>Brgy Officials</p>
                             </a>
                         </li>
                         <!-- barangay info -->

@@ -12,7 +12,7 @@
 
 	if(!empty($id)){
 
-		$query 		= "UPDATE tblchairmanship SET `title` = '$chair' WHERE id=$id;";	
+		$query 		= "UPDATE tbl_chairmanship SET `title` = '$chair' WHERE id=$id;";	
 		$result 	= $conn->query($query);
 
 		if($result === true){
