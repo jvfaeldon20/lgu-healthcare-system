@@ -54,7 +54,7 @@ $current_page = PageName();
                     <h4 class="text-section">APPOINTMENTS</h4>
                 </li>
                         <!-- create appointment -->
-                        <li class="nav-item <?= $current_page=='appointment.php' ? 'active' : null ?>">
+                        <li class="nav-item <?= $current_page=='appointment.php' || $current_page=='appointment_detail.php' || $current_page=='appointment_add_form.php' || $current_page=='appointment_update_form.php' ? 'active' : null ?>">
                             <a href="appointment.php" >
                                 <i class="fas fa-pills"></i>
                                 <p>Appointment</p>
@@ -64,7 +64,7 @@ $current_page = PageName();
 
 
                 <!-- our barangay -->
-                <?php if(isset($_SESSION['username']) && $_SESSION['role']=='resident'): ?>
+                <?php if(isset($_SESSION['username']) && $_SESSION['role']!='medical-admin'): ?>
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
