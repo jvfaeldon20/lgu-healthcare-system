@@ -1,346 +1,113 @@
 <?php include 'server/server.php' ?>
 <?php 
-	$query = "SELECT * FROM tblblotter";
+	$query = "SELECT * FROM tbl_medical_supply";
     $result = $conn->query($query);
 
-    $blotter = array();
+    $medical_supply = array();
 	while($row = $result->fetch_assoc()){
-		$blotter[] = $row; 
+		$medical_supply[] = $row; 
 	}
-
-	$query1 = "SELECT * FROM tblblotter WHERE `status`='Active'";
-    $result1 = $conn->query($query1);
-	$active = $result1->num_rows;
-
-	$query2 = "SELECT * FROM tblblotter WHERE `status`='Scheduled'";
-    $result2 = $conn->query($query2);
-	$scheduled = $result2->num_rows;
-
-	$query3 = "SELECT * FROM tblblotter WHERE `status`='Settled'";
-    $result3 = $conn->query($query3);
-	$settled = $result3->num_rows;
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<?php include 'templates/header.php' ?>
-	<title>Appointments -  Barangay Healthcare System</title>
+	<title>Medical Supplies - Masili Health Service System</title>
 </head>
 <body>
-<?php include 'templates/loading_screen.php' ?>
 	<div class="wrapper">
-		<!-- Main Header -->
 		<?php include 'templates/main-header.php' ?>
-		<!-- End Main Header -->
-
-		<!-- Sidebar -->
 		<?php include 'templates/sidebar.php' ?>
-		<!-- End Sidebar -->
 
 		<div class="main-panel">
 			<div class="content">
 				<div class="page-inner">
-					<div class="alert alert-success" role="alert">Success! Welcome to Health Care System!</div>
-					<div class="row mt--2"> 
+					<div class="row mt--2">
 						<div class="col-md-12">
+							<?php include 'templates/loading_screen.php' ?>
 							<div class="card">
 								<div class="card-header">
 									<div class="card-head-row">
-										<div class="card-title">A</div>
-										<?php if(isset($_SESSION['username']) && $_SESSION['role']=='administrator'): ?>
-											<div class="card-tools">
-											<span class="badge rounded-pill-lg bg-success text-white">Done: <strong>2</strong></span>
-											<span class="badge rounded-pill bg-danger text-white">Active: <strong>5</strong></span>
-											<span class="badge rounded-pill bg-warning text-white">Schdeuled: <strong>1</strong></span>
-											</div>
+										<div class="card-title text-primary">
+											<h1>MEDICAL SUPPLIES</h1>
+										</div>
+										<?php if(isset($_SESSION['username']) && $_SESSION['role']!='resident'): ?>
+										<div class="card-tools">
+											<a href="#" class="btn btn-default btn-success">
+												<i class="fa fa-plus mr-2"></i>
+												Supply
+											</a>
+											<button onclick="Export()" class="btn btn-default btn-default">
+												<i class="fa fa-download mr-2"></i>
+												Export to CSV
+											</button>
+										</div>
 										<?php endif?>
-										<?php if(isset($_SESSION['username']) && $_SESSION['role']=='resident'): ?>
-											<div class="card-tools">
-												<a href="#support" data-toggle="modal" class="btn btn-info btn-border btn-round btn-sm">
-													<i class="fa fa-plus"></i>
-													Request an Appointment
-												</a>
-											</div>
-											<?php endif?>
 									</div>
 								</div>
 								<div class="card-body">
+									<!-- medicine table -->
 									<div class="table-responsive">
-										<table id="blottertable" class="display table table-striped">
+										<table id="blottertable" class="display table">
 											<thead>
-											<tr>
-													<th scope="col">Resident Name</th>
-													<th scope="col">Staff In Charge</th>
-													<th scope="col">Age</th>
-													<th scope="col">Date</th>
-													<th scope="col">Time</th>
-													<th scope="col">Appointment type</th>
-													<th scope="col">Status</th>
-													<?php if(isset($_SESSION['username']) && $_SESSION['role']=='administrator'): ?>
-													<th scope="col">Action</th>
-													<?php endif ?>
+												<tr class="text-primary">
+														<th scope="col">Supply Item</th>
+														<th scope="col">Description</th>
+														<th scope="col">Category</th>
+														<th scope="col">Quantity</th>
+														<th scope="col">Status</th>
+														<?php if(isset($_SESSION['username']) && $_SESSION['role']!='resident'): ?>
+															<th scope="col">Action</th>
+														<?php endif ?>
 												</tr>
 											</thead>
 											<tbody>
-												<?php if(!empty($blotter)): ?>
-													<?php foreach($blotter as $row): ?>
-													<tr>
-														<td><?= ucwords($row['complainant']) ?></td>
-														<td><?= ucwords($row['respondent']) ?></td>
-														<td><?= ucwords($row['age']) ?></td>
-														<td><?= ucwords($row['date']) ?></td>
-														<td><?= ucwords($row['time']) ?></td>
-														<td><?= ucwords($row['type']) ?></td>
-														<td>
-															<?php if($row['status']=='Scheduled'): ?>
-																<span class="badge badge-warning">Scheduled</span>
-															<?php elseif($row['status']=='Active'): ?>
-																<span class="badge badge-danger">Active</span>
-															<?php else: ?>
-																<span class="badge badge-success">Done</span>
+												<?php foreach($medical_supply as $row): ?>
+														<tr>
+															<td><?= ucwords($row['supply_name']) ?></td>
+															<td><?= ucwords($row['description']) ?></td>
+															<td><?= ucwords($row['category']) ?></td>
+															<td><?= ucwords($row['quantity']) ?></td>
+															<td class="text-center">
+																<span style="width:90px;" class="badge rounded-pill <?= $row['quantity']>0?'bg-success':'bg-danger' ?> text-white"><?= ucwords($row['quantity']>0?"Available":"Out of Stock") ?></span></td>
+															<?php if(isset($_SESSION['username']) && $_SESSION['role']!='resident'): ?>
+																<td>
+																	<a 
+																		type="button" 
+																		data-toggle="tooltip" 
+																		href="model/remove_blotter.php?id=<?= $row['id'] ?>" 
+																		onclick="return confirm('Are you sure you want to delete this Appointment?');" 
+																		class="btn btn-link btn-primary" 
+																		data-original-title="Update"
+																	>
+																			<i class="fa fa-edit"></i>
+																	</a>
+																	<a type="button" data-toggle="tooltip" href="model/remove_blotter.php?id=<?= $row['id'] ?>" onclick="return confirm('Are you sure you want to delete this Appointment?');" class="btn btn-link btn-primary" data-original-title="Remove">
+																			<i class="fa fa-trash"></i>
+																	</a>
+																</td>
 															<?php endif ?>
-														</td>
-														<?php if(isset($_SESSION['username']) && $_SESSION['role']=='administrator'): ?>
-														<td>
-															<a type="button" href="#edit" data-toggle="modal" class="btn btn-link btn-primary" 
-																title="Edit Appointment" onclick="editBlotter1(this)" data-id="<?= $row['id'] ?>" data-complainant="<?= $row['complainant'] ?>" 
-																data-respondent="<?= $row['respondent'] ?>" data-victim="<?= $row['age'] ?>" data-type="<?= $row['type'] ?>" data-l="<?= $row['location'] ?>" 
-																data-date="<?= $row['date'] ?>" data-time="<?= $row['time'] ?>" data-details="<?= $row['details'] ?>" data-status="<?= $row['status'] ?>" >
-																<?php if(isset($_SESSION['username'])): ?>
-																<i class="fa fa-edit"></i>
-																<?php else: ?>
-																<i class="fa fa-eye"></i>
-																<?php endif ?>
-															</a>
-															
-															<?php if(isset($_SESSION['username']) && $_SESSION['role']=='administrator'|| 'staff'):?>
-															<a type="button" data-toggle="tooltip" href="model/remove_blotter.php?id=<?= $row['id'] ?>" onclick="return confirm('Are you sure you want to delete this Appointment?');" class="btn btn-link btn-danger" data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</a>
-															<?php endif ?>
-														</td>
-														<?php endif ?>
-													</tr>
-													<?php endforeach ?>
-												<?php endif ?>
+														</tr>
+												<?php endforeach ?>
 											</tbody>
-											<tfoot>
-												<tr>
-													<th scope="col">Resident Name</th>
-													<th scope="col">Staff In Charge</th>
-													<th scope="col">Age</th>
-													<th scope="col">Date</th>
-													<th scope="col">Time</th>
-													<th scope="col">Appointment type</th>
-													<th scope="col">Status</th>
-													<?php if(isset($_SESSION['username']) && $_SESSION['role']=='administrator'): ?>
-													<th scope="col">Action</th>
-													<?php endif ?>
-												</tr>
-											</tfoot>
 										</table>
 									</div>
 								</div>
+								<!-- end of medicine table -->
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			
-			 <!-- Modal -->
-			 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Create an appointment</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" action="model/save_blotter.php" >
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Resident</label>
-											<input type="text" class="form-control" placeholder="Enter Resident Name" name="complainant" required>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Staff In Charge</label>
-											<input type="text" class="form-control" placeholder="Enter staff Name" name="respondent" required>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Age</label>
-											<input type="number" class="form-control" placeholder="Enter Age" name="victim" required>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Type</label>
-											<select class="form-control" name="type">
-												<option disabled selected>Appointment Type</option>
-												<option value="Check up">Check Up</option>
-												<option value="Therapy">Therapy</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Location</label>
-											<input type="text" class="form-control" placeholder="Enter Location" name="location" required>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Date</label>
-											<input type="date" class="form-control" name="date" value="<?= date('Y-m-d'); ?>" required>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Time</label>
-											<input type="time" class="form-control" name="time" required>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Status</label>
-											<select class="form-control" name="status">
-												<option disabled selected>Select Appointment Status</option>
-												<option value="Active">Active</option>
-												<option value="Settled">Done</option>
-												<option value="Scheduled">Scheduled</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label>Details</label>
-									<textarea class="form-control" placeholder="Enter Appointment Details..." name="details" required></textarea>
-								</div>
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-			<!-- Modal -->
-			<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Appointment</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" action="model/edit_blotter.php" >
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Resident</label>
-											<input type="text" class="form-control" placeholder="Enter Complainant Name" id="complainant" name="complainant" required>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Staff In Charge</label>
-											<input type="text" class="form-control" placeholder="Enter Respondent Name" id="respondent" name="respondent" required>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Age</label>
-											<input type="number" class="form-control" placeholder="Enter age" id="victim" name="victim" required>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Type</label>
-											<select class="form-control" name="type">
-												<option disabled selected>Appointment Type</option>
-												<option value="Check up">Check Up</option>
-												<option value="Therapy">Therapy</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Location</label>
-											<input type="text" class="form-control" placeholder="Enter Location" id="location" name="location" required>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Date</label>
-											<input type="date" class="form-control" name="date" id="date" required>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Time</label>
-											<input type="time" class="form-control" name="time" id="time" required>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>Status</label>
-											<select class="form-control" name="status" id="status">
-												<option disabled selected>Select Blotter Status</option>
-												<option value="Active">Active</option>
-												<option value="Settled">Done</option>
-												<option value="Scheduled">Scheduled</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label>Details</label>
-									<textarea class="form-control" placeholder="Appointment detail..." id="details" name="details" required></textarea>
-								</div>
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <input type="hidden" id="blotter_id" name="id">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<?php if(isset($_SESSION['username'])):?>
-                            <button type="submit" class="btn btn-primary">Update</button>
-							<?php endif ?>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
 			<!-- Main Footer -->
 			<?php include 'templates/main-footer.php' ?>
 			<!-- End Main Footer -->
 			
 		</div>
-		
 	</div>
+	
 	<?php include 'templates/footer.php' ?>
 	<script src="assets/js/plugin/datatables/datatables.min.js"></script>
     <script>
@@ -362,6 +129,16 @@
 				oTable.columns(4).search(textSelected).draw();
 			});
         });
+
+		function Export(){
+			var conf = confirm("Export medical supply to CSV?");
+			var stmt = "SELECT *, IF(quantity > 0,'available', 'out of stock') AS STATUS FROM tbl_medical_supply";
+			var tblHeader = 'No,Supply Name,Description,Category,Quantity,Status';
+			var fileName = "medical_supply";
+			if(conf){
+				window.open(`export.php?query=${stmt}&tblHeader=${tblHeader}&fileName=${fileName}`, '_blank');
+			}
+		}
     </script>
 </body>
 </html>
