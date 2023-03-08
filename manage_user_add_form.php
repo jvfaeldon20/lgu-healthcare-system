@@ -55,11 +55,11 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="inputPassword">Password</label>
-                                                    <input type="password" class="form-control" id="inputPassword" name="password"  minlength="8" pattern="[A-Za-z0-9]+" required>
+                                                    <input type="password" class="form-control" id="inputPassword" name="password"  minlength="8" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="inputPassword2">Confirm Password</label>
-                                                    <input type="password" class="form-control" id="inputPassword2" name="confirm_password" minlength="8" pattern="[a-zA-Z0-9]+" required>
+                                                    <input type="password" class="form-control" id="inputPassword2" name="confirm_password" minlength="8" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-primary mt-2 mb-2">Create</button>

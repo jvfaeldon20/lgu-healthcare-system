@@ -54,7 +54,7 @@
 								</div>
 								<div class="card-body">
 									<div class="table-responsive">
-										<table class="table table-striped ">
+										<table class="table">
 											<thead>
 												<tr class="text-primary">
 													<th scope="col">Account Name</th>
@@ -82,18 +82,13 @@
 																</select>
 																<div class="input-group-append">
 																	<a href="manage_user_update_status.php?id=<?= $row['id'] ?>&status=<?= $row['status']==1?0:1 ?>" onclick="return confirm('Do you want to changes?');" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Update user status">
-																	<i class="fa fa-edit"></i>
+																	<i class="fa fa-edit mr-2"></i>Update
 																	</a>
 																</div>
-																<a href="manage_user_delete_user.php?id=<?= $row['id'] ?>" onclick="return confirm('Do you want to delete this user: <?= $row['username'] ?>?');" class="btn btn-danger ml-2" data-toggle="tooltip" data-placement="top" title="Delete">
-																	<i class="fa fa-trash"></i></a>
 															</div>
-															
 														</td>
-														
-														
 													</tr>
-													<?php endforeach ?>
+												<?php endforeach ?>
 											</tbody>
 										</table>
 									</div>
