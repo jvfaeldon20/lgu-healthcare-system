@@ -28,6 +28,11 @@
 	$stmtMedicalSupplyAvailable 	= "SELECT SUM(quantity) AS supply_count FROM tbl_medical_supply";
     $resMedicalSupplyAvailable 	= $conn->query($stmtMedicalSupplyAvailable);
 	$totalMedicalSupplyAvailable = $resMedicalSupplyAvailable->fetch_assoc();
+
+	// total appointments today
+	$stmtAppointmentsToday 	= "SELECT COUNT(*) AS total_appointment FROM tbl_medical_supply";
+    $resAppointmentsToday 	= $conn->query($stmtAppointmentsToday);
+	$totalAppointmentsToday = $resAppointmentsToday->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -58,10 +63,10 @@
 					<!-- analytics -->
 					<?php if(isset($_SESSION['username']) && $_SESSION['role'] =='system-maintenance'):?>
 						<div class="row">
-							<div class="d-flex col-md-12 col-md-6 ">
-								<div class="card text-center mr-3" style="width: 15rem;">
+							<div class="d-flex p-3 flex-row ">
+								<div class="card text-center mr-3 " style="width: 15rem;">
 									<div class="card-header card-success">
-										<span style="font-size: 65px; font-weight: bold;"><?php echo $totalResident['count']; ?></span>
+										<span style="font-size: 65px; font-weight: bold;"><?php echo $totalResident['count']?$totalResident['count']:0 ?></span>
 									</div>
 									<div class="card-body">
 										<h5 class="card-title">
@@ -73,7 +78,7 @@
 								</div>
 								<div class="card text-center mr-3" style="width: 15rem;">
 									<div class="card-header card-primary">
-										<span style="font-size: 65px; font-weight: bold;"><?php echo $totalMaleResident['count']; ?></span>
+										<span style="font-size: 65px; font-weight: bold;"><?php echo $totalMaleResident['count']?$totalMaleResident['count']:0 ?></span>
 									</div>
 									<div class="card-body">
 										<h5 class="card-title">
@@ -85,7 +90,7 @@
 								</div>
 								<div class="card text-center mr-3" style="width: 15rem;">
 									<div class="card-header card-danger">
-										<span style="font-size: 65px; font-weight: bold;"><?php echo $totalFemaleResident['count']; ?></span>
+										<span style="font-size: 65px; font-weight: bold;"><?php echo $totalFemaleResident['count']?$totalFemaleResident['count']:0 ?></span>
 									</div>
 									<div class="card-body">
 										<h5 class="card-title">
@@ -97,7 +102,7 @@
 								</div>
 								<div class="card text-center mr-3" style="width: 15rem;">
 									<div class="card-header card-info">
-										<span style="font-size: 65px; font-weight: bold;"><?php echo $totalMedicineAvailable['med_count']; ?></span>
+										<span style="font-size: 65px; font-weight: bold;"><?php echo $totalMedicineAvailable['med_count']?$totalMedicineAvailable['med_count']:0 ?></span>
 									</div>
 									<div class="card-body">
 										<h5 class="card-title">
@@ -109,14 +114,26 @@
 								</div>
 								<div class="card text-center mr-3" style="width: 15rem;">
 									<div class="card-header card-warning">
-										<span style="font-size: 65px; font-weight: bold;"><?php echo $totalMedicalSupplyAvailable['supply_count']; ?></span>
+										<span style="font-size: 65px; font-weight: bold;"><?php echo $totalMedicalSupplyAvailable['supply_count']>0?$totalMedicalSupplyAvailable['supply_count']:0 ?></span>
 									</div>
 									<div class="card-body">
 										<h5 class="card-title text-default">
 											<strong>MEDICAL SUPPLY</strong>
 										</h5>
 										<p class="card-text">Total no. of consumables available in the barangay.</p>
-										<a href="medical-supplies.php" class="btn btn-warning btn-sm">View Details</a>
+										<a href="supplies.php" class="btn btn-warning btn-sm">View Details</a>
+									</div>
+								</div>
+								<div class="card text-center mr-3" style="width: 15rem;">
+									<div class="card-header card-default">
+										<span style="font-size: 65px; font-weight: bold;"><?php echo $totalAppointmentsToday['total_appointment']>0?$totalAppointmentsToday['total_appointment']:0 ?></span>
+									</div>
+									<div class="card-body">
+										<h5 class="card-title text-default">
+											<strong>APPOINTMENTS</strong>
+										</h5>
+										<p class="card-text">Total no. of appointments today in the barangay.</p>
+										<a href="appointment.php" class="btn btn-warning btn-sm">View Details</a>
 									</div>
 								</div>
 							</div>
