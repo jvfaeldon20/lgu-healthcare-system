@@ -124,18 +124,15 @@ $current_page = PageName();
 
 
                 <!-- sign out -->
-                <li class="nav-item fixed-bottom">
-                        <?php if(isset($_SESSION['role'])):?>
-                            <a href="model/logout.php">
-                                <i class="icon-logout"></i>
-                                <p>Logged as <span class='text-primary'><?php echo $_SESSION['username']; ?></span></p>
-                            </a>
-                        <?php endif ?>
+                <li class="nav-item " style="position: absolute;bottom: 0; display: inline-block;">
+                    <a href="model/logout.php">
+                        <i class="icon-logout"></i>
+                        <p>Logged as <span class='text-primary'><?php echo $_SESSION['username']; ?></span></p>
+                    </a>
                 </li>
                 <!-- end of sign out -->
 
             </ul>
-
         </div>
     </div>
 </div>
