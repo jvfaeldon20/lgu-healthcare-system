@@ -6,7 +6,7 @@
 
     session_start();	
     $_SESSION['message'] = "You have been logged out!";
-    $_SESSION['success'] = 'danger';
+    $_SESSION['success'] = 'success';
 
 
     header('location: ../login.php');
