@@ -31,7 +31,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="inputGenericName">Generic Name</label>
-                                                    <input type="text" class="form-control" id="inputGenericName" name="generic_name">
+                                                    <input type="text" class="form-control" id="inputGenericName" name="generic_name" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="inputDescription">Description</label>
@@ -39,7 +39,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleFormControlSelect1">Category</label>
-                                                    <select class="form-control" id="exampleFormControlSelect1" name="category">
+                                                    <select class="form-control" id="exampleFormControlSelect1" name="category" required>
+                                                        <option selected="true" disabled="disabled">--</option>
                                                         <option value="ANALGESIC">ANALGESIC</option>
                                                         <option value="ANTIBIOTIC">ANTIBIOTIC</option>
                                                         <option value="VITAMINS">VITAMINS</option>
@@ -47,15 +48,16 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="inputQuantity">Quantity</label>
-                                                    <input type="text" class="form-control" id="inputQuantity" name="quantity">
+                                                    <input type="number" class="form-control" id="inputQuantity" name="quantity" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="inputDosage">Dosage</label>
-                                                    <input type="text" class="form-control" id="inputDosage" name="dosage">
+                                                    <input type="number" class="form-control" id="inputDosage" name="dosage" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleFormControlSelect1">Unit</label>
-                                                    <select class="form-control" id="exampleFormControlSelect1" name="unit">
+                                                    <select class="form-control" id="exampleFormControlSelect1" name="unit" required>
+                                                        <option selected="true" disabled="disabled">--</option>
                                                         <option value="MG">MG</option>
                                                         <option value="ML">ML</option>
                                                         <option value="G">G</option>

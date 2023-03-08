@@ -21,7 +21,7 @@
 									<div class="card-head-row">
 										<div class="card-title">
 											<h1>
-                                            <a href="medicine.php" class="text-primary">MEDICAL SUPPLY</a> > <strong class="text-default">CREATE</strong></h1>
+                                            <a href="supplies.php" class="text-primary">MEDICAL SUPPLY</a> > <strong class="text-default">CREATE</strong></h1>
 										</div>
 									</div>
 								</div>
@@ -31,22 +31,23 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="inputSupplyName">Supply Name</label>
-                                                    <input type="text" class="form-control" id="inputSupplyName" name="supply_name">
+                                                    <input type="text" class="form-control" id="inputSupplyName" name="supply_name" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="inputDescription">Description</label>
-                                                    <textarea class="form-control" id="inputDescription" rows="3" name="description"></textarea>
+                                                    <textarea class="form-control" id="inputDescription" rows="3" name="description" required></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleFormControlSelect1">Category</label>
-                                                    <select class="form-control" id="exampleFormControlSelect1" name="category">
-                                                        <option value="PROTECTIVE GEAR">ANALGESIC</option>
+                                                    <select class="form-control" id="exampleFormControlSelect1" name="category" required>
+														<option selected="true" disabled="disabled">--</option>
+														<option value="PROTECTIVE GEAR">PROTECTIVE GEAR</option>
                                                         <option value="FIRST AID">FIRST AID</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="inputQuantity">Quantity</label>
-                                                    <input type="text" class="form-control" id="inputQuantity" name="quantity">
+                                                    <input type="number" class="form-control" id="inputQuantity" name="quantity" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-primary mt-2 mb-2">Create</button>
