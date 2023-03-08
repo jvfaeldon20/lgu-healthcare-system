@@ -1,9 +1,7 @@
 <?php include 'server/server.php' ?>
 <?php
-    $id = $_POST['id'];
     $image = $_FILES["fileToUpload"]["name"];
     $title = $_POST['title'];
-    $status = $_POST['status'];
     $category = $_POST['category'];
     $description = $_POST['description'];
     $target_dir = "assets/img/";
@@ -13,20 +11,14 @@
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
     move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
     
-    $query = "UPDATE tbl_announcement
-                SET image='$image',
-                    title = '$title',
-                    status= '$status',
-                    category= '$category',
-                    description= '$description',
-                    create_date='$create_date'
-              WHERE id='$id'";
+    $query = "INSERT INTO tbl_announcement (image,title,status,category,description,create_date) 
+                VALUES ('$image','$title',1,'$category','$description','$create_date')";
     echo $query;
     $result = $conn->query($query);
-    $_SESSION['message'] = 'Failed to update announcement!';
+    $_SESSION['message'] = 'Failed to add announcement!';
     $_SESSION['success'] = 'danger';
     if($result){
-        $_SESSION['message'] = 'Successfully updated announcement!';
+        $_SESSION['message'] = 'Successfully added announcement!';
         $_SESSION['success'] = 'success';
     }
     header('location: announcement.php');

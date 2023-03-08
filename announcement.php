@@ -2,7 +2,7 @@
 <?php 
 
     // announcement
-	$getAnnouncement = "SELECT * FROM tbl_announcement WHERE status=1";
+	$getAnnouncement = "SELECT * FROM tbl_announcement WHERE status=1 ORDER BY id DESC";
     $announcement = $conn->query($getAnnouncement);
 
 ?>
@@ -31,6 +31,23 @@
                             <?php unset($_SESSION['message']); ?>
                             <?php endif ?>
                             <!-- end of action alert -->
+                            <div class="card mb-0">
+                                <div class="card-header">
+                                    <div class="card-head-row">
+                                        <div class="card-title text-primary">
+                                            <h1>ANNOUNCEMENT</h1>
+                                        </div>
+                                        
+                                        <div class="card-tools">
+                                            <a href="announcement_add_form.php" class="btn btn-primary mr-1">
+                                                <i class="fa fa-plus mr-2"></i>
+                                                Announcement
+                                            </a>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
                             <?php foreach($announcement as $row): ?>
                                 <div class="card" style="margin-bottom: 15px !important;">
                                     <div class="card-body">

@@ -1,7 +1,7 @@
 <?php include 'server/server.php' ?>
 <?php 
 	// announcement
-	$getAnnouncement = "SELECT * FROM tbl_announcement WHERE status=1";
+	$getAnnouncement = "SELECT * FROM tbl_announcement WHERE status=1 ORDER BY id DESC";
     $announcement = $conn->query($getAnnouncement);
 	
 	// total residents
@@ -30,7 +30,8 @@
 	$totalMedicalSupplyAvailable = $resMedicalSupplyAvailable->fetch_assoc();
 
 	// total appointments today
-	$stmtAppointmentsToday 	= "SELECT COUNT(*) AS total_appointment FROM tbl_medical_supply";
+	$date_today 			= date("Y-m-d");
+	$stmtAppointmentsToday 	= "SELECT COUNT(*) AS total_appointment FROM tbl_appointment WHERE appointment_date = '$date_today'";
     $resAppointmentsToday 	= $conn->query($stmtAppointmentsToday);
 	$totalAppointmentsToday = $resAppointmentsToday->fetch_assoc();
 ?>
