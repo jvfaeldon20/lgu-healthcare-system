@@ -11,7 +11,7 @@ $current_page = PageName();
             
             <ul class="nav nav-primary">
                 <!-- dashboard -->
-                <li class="nav-item <?= $current_page=='dashboard.php' ? 'active' : null ?>">
+                <li class="nav-item <?= $current_page=='dashboard.php' || $current_page=='dashboard_announcement_detail.php' ? 'active' : null ?>">
                     <a href="dashboard.php" >
                         <i class="fas fa-bullhorn"></i>
                         <p>Dashboard</p>
@@ -82,7 +82,7 @@ $current_page = PageName();
                         <li class="nav-item <?= $current_page=='barangay-info.php' ? 'active' : null ?>">
                             <a href="barangay-info.php" >
                                 <i class="fa fa-info"></i>
-                                <p>Barangay Info</p>
+                                <p>Barangay Map</p>
                             </a>
                         </li>
                         <?php endif ?>
@@ -98,11 +98,11 @@ $current_page = PageName();
                     </span>
                     <h4 class="text-section">SYSTEM MAINTENANCE</h4>
                 </li>
-                        <!-- resident -->
-                        <li class="nav-item <?= $current_page=='resident.php' ? 'active' : null ?>">
-                            <a href="resident.php" >
-                            <i class="fa fa-users"></i>
-                                <p>Residents</p>
+                        <!-- manage announcement -->
+                        <li class="nav-item <?= $current_page=='announcement.php' || $current_page=='announcement_detail.php' || $current_page=='announcement_update_form.php' ? 'active' : null ?>">
+                            <a href="announcement.php" >
+                                <i class="fas fa-podcast"></i>
+                                <p>Announcement</p>
                             </a>
                         </li>
                         <!-- manage users -->
@@ -112,11 +112,18 @@ $current_page = PageName();
                                 <p>Manage Users</p>
                             </a>
                         </li>
+                        <!-- resident -->
+                        <li class="nav-item <?= $current_page=='resident.php' ? 'active' : null ?>">
+                            <a href="resident.php" >
+                            <i class="fa fa-users"></i>
+                                <p>Residents</p>
+                            </a>
+                        </li>
                         <!-- reports -->
                         <li class="nav-item <?= $current_page=='download-reports.php' ? 'active' : null ?>">
                             <a href="download-reports.php" >
                                 <i class="fa fa-print"></i>
-                                <p>Download Reports</p>
+                                <p>Reports</p>
                             </a>
                         </li>
                         <?php endif ?>
