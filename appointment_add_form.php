@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<?php include 'templates/header.php' ?>
-	<title>Supplies - Masili Health Service System</title>
+	<title>Appointment - Masili Health Service System</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -31,23 +31,28 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="inputAppointmentType">Appointment Type</label>
-                                                    <select class="form-control" id="inputAppointmentType" name="appointment_type">
-                                                        <option>CHECK-UP</option>
+                                                    <select class="form-control" id="inputAppointmentType" name="appointment_type" required>
+														<option selected="true" disabled="disabled">--</option>
+														<option>CHECK-UP</option>
                                                         <option>VACCINATION</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="inputResidentName">Resident Name</label>
-                                                    <input type="text" class="form-control" id="inputResidentName" name="resident_name">
+                                                    <input type="text" class="form-control" id="inputResidentName" name="resident_name" required>
                                                     <small class="form-text text-muted">ex: DELA CRUZ, JUAN V.</small>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="inputAge">Age</label>
-                                                    <input type="text" class="form-control" id="inputAge" name="age">
+                                                    <input type="number" class="form-control" id="inputAge" name="age" required>
+                                                </div>
+												<div class="form-group">
+                                                    <label for="inputMobile">Mobile No.</label>
+                                                    <input type="number" class="form-control" id="inputMobile" name="mobile_no" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="concern">Concern</label>
-                                                    <textarea class="form-control" id="concern" rows="4" name="concern"></textarea>
+                                                    <textarea class="form-control" id="concern" rows="4" name="concern" required></textarea>
                                                     <small class="form-text text-muted">ex: continuous headache for 2 days, vomitting</small>
                                                 </div>
                                                 <div class="form-group">

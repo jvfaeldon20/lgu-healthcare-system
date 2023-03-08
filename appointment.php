@@ -1,6 +1,6 @@
 <?php include 'server/server.php' ?>
 <?php 
-	$query = "SELECT * FROM tbl_appointment";
+	$query = "SELECT * FROM tbl_appointment ORDER BY id DESC";
     $result = $conn->query($query);
 
     $appointment = array();
@@ -13,7 +13,7 @@
 <html lang="en">
 <head>
 	<?php include 'templates/header.php' ?>
-	<title>Appointments - Masili Health Service System</title>
+	<title>Appointment - Masili Health Service System</title>
 </head>
 <body>
 	<div class="wrapper">

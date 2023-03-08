@@ -14,7 +14,7 @@
 <html lang="en">
 <head>
 	<?php include 'templates/header.php' ?>
-	<title>Supplies - Masili Health Service System</title>
+	<title>Appointment - Masili Health Service System</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -58,6 +58,9 @@
                                                         </label><br>
                                                         <label>Resident Name: 
                                                             <strong class="text-primary"><?php echo $row['resident_name']." | ".$row['age'] ?></strong>
+                                                        </label><br>
+                                                        <label>Mobile: 
+                                                            <strong class="text-primary"><?php echo $row['mobile_no'] ?></strong>
                                                         </label><br>
                                                         <label>Concern:<br>
                                                             <strong class="text-primary"><?php echo $row['concern']?$row['concern']:'No data' ?></strong>

@@ -14,7 +14,7 @@
 <html lang="en">
 <head>
 	<?php include 'templates/header.php' ?>
-	<title>Supplies - Masili Health Service System</title>
+	<title>Appointment - Masili Health Service System</title>
 </head>
 <body>
 	<div class="wrapper">
