@@ -31,7 +31,7 @@
                                     loading="lazy"
                                     allowfullscreen
                                     referrerpolicy="no-referrer-when-downgrade"
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2300.0563774308553!2d121.20115095991318!3d14.181987050701315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd613926c4267f%3A0x62fd88e8affa6ac1!2sMasili%2C%20Real%2C%20Calamba%2C%20Laguna!5e0!3m2!1sen!2sph!4v1678197920713!5m2!1sen!2sph">
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241.76664913332016!2d121.2008319339334!3d14.17916975688141!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd613bc95c6f01%3A0xeb6c7e912eea7c0c!2sMasili!5e0!3m2!1sen!2sph!4v1678287307351!5m2!1sen!2sph">
                                 </iframe>
 								</div>
 							</div>
