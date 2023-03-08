@@ -10,44 +10,9 @@ $sqlScript .= "# Generated: " . date( 'l j. F Y' ) . "\n";
 $sqlScript .= "# Hostname: " . $host . "\n";
 $sqlScript .= "# Database: " . $database . "\n";
 $sqlScript .= "# --------------------------------------------------------\n";
+$table      = $_GET['tbl'];
 
-// Get All Table Names From the Database
-$tables = array();
-$result = $conn->query('SHOW TABLES' );
-
-while ($row = $result->fetch_row()) {
-    $tables[] = $row[0];
-}
-foreach ($tables as $table) {
-    
-    // Add SQL statement to drop existing table
-    $sqlScript .= "\n";
-    $sqlScript .= "\n";
-    $sqlScript .= "#\n";
-    $sqlScript .= "# Delete any existing table `" . $table . "`\n";
-    $sqlScript .= "#\n";
-    $sqlScript .= "\n";
-    $sqlScript .= "DROP TABLE IF EXISTS `" . $table. "`;\n";
-
-    /* Table Structure */
-
-    // Comment in SQL-file
-    $sqlScript .= "\n";
-    $sqlScript .= "\n";
-    $sqlScript .= "#\n";
-    $sqlScript .= "# Table structure of table `" . $table . "`\n";
-    $sqlScript .= "#\n";
-    $sqlScript .= "\n";
-
-    // Prepare SQLscript for creating table structure
-    $query = "SHOW CREATE TABLE $table";
-    $result = $conn->query($query);
-    $row = $result->fetch_row();
-    
-    $sqlScript .= "\n\n" . $row[1] . ";\n\n";
-    
-    
-    $query = "SELECT * FROM $table";
+$query = "SELECT * FROM $table";
     $result = $conn->query($query);
     
     $columnCount = mysqli_num_fields($result);
@@ -74,12 +39,12 @@ foreach ($tables as $table) {
     }
     
     $sqlScript .= "\n"; 
-}
 
 if(!empty($sqlScript))
 {
     // Save the SQL script to a backup file
-    $backup_file_name = $database . '_backup_' . time() . '.sql';
+    $date= date("Ymd");
+    $backup_file_name = $table . '_' . $date . '.sql';
     $fileHandler = fopen($backup_file_name, 'w');
     $number_of_lines = fwrite($fileHandler, $sqlScript);
     fclose($fileHandler); 
