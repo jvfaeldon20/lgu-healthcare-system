@@ -16,7 +16,6 @@
 	<title>Manage User - Masili Health Service System</title>
 </head>
 <body>
-<?php include 'templates/loading_screen.php' ?>
 	<div class="wrapper">
 		<?php include 'templates/main-header.php' ?>
 		<?php include 'templates/sidebar.php' ?>
@@ -26,6 +25,7 @@
 				<div class="page-inner">
 					<div class="row mt--2">
 						<div class="col-md-12">
+							<?php include 'templates/loading_screen.php' ?>
                             <div class="card">
 								<div class="card-header">
 									<div class="card-head-row">
