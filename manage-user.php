@@ -1,7 +1,7 @@
 <?php include 'server/server.php' ?>
 <?php 
 	$user = $_SESSION['username'];
-	$query = "SELECT * FROM tbl_users WHERE NOT username='$user' ORDER BY `created_at` DESC";
+	$query = "SELECT * FROM tbl_users WHERE (username !='$user' AND username !='resident') ORDER BY `created_at` DESC";
     $result = $conn->query($query);
 
     $users = array();
@@ -25,6 +25,14 @@
 				<div class="page-inner">
 					<div class="row mt--2">
 						<div class="col-md-12">
+							<!-- action alert -->
+							<?php if(isset($_SESSION['message'])): ?>
+								<div class="alert alert-<?= $_SESSION['success']; ?> <?= $_SESSION['success']=='danger' ? 'bg-danger text-light' : null ?>" role="alert">
+									<?php echo $_SESSION['message']; ?>
+								</div>
+							<?php unset($_SESSION['message']); ?>
+							<?php endif ?>
+							<!-- end of action alert -->
 							<?php include 'templates/loading_screen.php' ?>
                             <div class="card">
 								<div class="card-header">
@@ -33,10 +41,14 @@
 											<h1>MANAGE USER</h1>
 										</div>
 										<div class="card-tools">
-											<a href="#add" data-toggle="modal" class="btn btn-info btn-border btn-round btn-sm">
-												<i class="fa fa-plus"></i>
+											<a href="manage_user_add_form.php" class="btn btn-primary mr-1">
+												<i class="fa fa-plus mr-2"></i>
 												User
 											</a>
+											<button onclick="Export()" class="btn btn-default btn-default">
+												<i class="fa fa-download mr-2"></i>
+												Export to CSV
+											</button>
 										</div>
 									</div>
 								</div>
@@ -45,41 +57,43 @@
 										<table class="table table-striped ">
 											<thead>
 												<tr class="text-primary">
-													<th scope="col">No.</th>
+													<th scope="col">Account Name</th>
 													<th scope="col">Username</th>
 													<th scope="col">User Type</th>
-													<th scope="col">Created At</th>
-													<th scope="col">Action</th>
+													<th scope="col">Set Action</th>
 												</tr>
 											</thead>
 											<tbody>
-												<?php if(!empty($users)): ?>
-													<?php $no=1; foreach($users as $row): ?>
+												<?php foreach($users as $row): ?>
 													<tr>
-														<td><?= $no ?></td>
 														<td>
-															<div class="avatar avatar-xs">
-                                                                <img src="<?= preg_match('/data:image/i', $row['avatar']) ? $row['avatar'] : 'assets/uploads/avatar/'.$row['avatar'] ?>" alt="User Profile" class="avatar-img rounded-circle">
-                                                            </div>
-                                                            <?= ucwords($row['username']) ?>
-														</td>
-														<td><?= $row['user_type'] ?></td>
-														<td><?= $row['created_at'] ?></td>
-														<td>
-															<div class="form-button-action">
-																<a type="button" data-toggle="tooltip" href="model/remove_user.php?id=<?= $row['id'] ?>" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-link btn-danger" data-original-title="Remove">
-																	<i class="fa fa-times"></i>
-																</a>
+															<div class="avatar avatar-sm">
+																<span class="avatar-title rounded-circle border border-white" style="background-color: lightseagreen"><?= ucwords($row['display_name'][0]) ?></span>
 															</div>
+															<?= $row['display_name'] ?>
+														</td>
+														<td><?= $row['username'] ?></td>
+														<td><?= $row['user_type'] ?></td>
+														<td>
+															<div class="input-group mr-1" style="width:60%">
+																<select class="form-control" id="formGroupDefaultSelect">
+																	<option value="1" <?=$row['status'] == 1 ? 'selected="selected"' : '';?>">ACTIVE</option>
+																	<option value="0" <?=$row['status'] == 0 ? 'selected="selected"' : '';?>">INACTIVE</option>
+																</select>
+																<div class="input-group-append">
+																	<a href="manage_user_update_status.php?id=<?= $row['id'] ?>&status=<?= $row['status']==1?0:1 ?>" onclick="return confirm('Do you want to changes?');" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Update user status">
+																	<i class="fa fa-edit"></i>
+																	</a>
+																</div>
+																<a href="manage_user_delete_user.php?id=<?= $row['id'] ?>" onclick="return confirm('Do you want to delete this user: <?= $row['username'] ?>?');" class="btn btn-danger ml-2" data-toggle="tooltip" data-placement="top" title="Delete">
+																	<i class="fa fa-trash"></i></a>
+															</div>
+															
 														</td>
 														
+														
 													</tr>
-													<?php $no++; endforeach ?>
-												<?php else: ?>
-													<tr>
-														<td colspan="5" class="text-center">No Available Data</td>
-													</tr>
-												<?php endif ?>
+													<?php endforeach ?>
 											</tbody>
 										</table>
 									</div>
@@ -90,68 +104,23 @@
 				</div>
 			</div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Create System User</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" action="model/save_user.php" enctype="multipart/form-data">
-							<input type="hidden" name="size" value="1000000">
-								<div class="text-center">
-                                    <div id="my_camera" style="height: 250;" class="text-center">
-                                        <img src="assets/img/person.png" alt="..." class="img img-fluid" width="250" >
-                                    </div>
-                                    <div class="form-group d-flex justify-content-center">
-                                        <button type="button" class="btn btn-danger btn-sm mr-2" id="open_cam">Open Camera</button>
-                                        <button type="button" class="btn btn-secondary btn-sm ml-2" onclick="save_photo()">Capture</button>   
-                                    </div>
-                                    <div id="profileImage">
-                                        <input type="hidden" name="profileimg">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="file" class="form-control" name="img" accept="image/*">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Username</label>
-                                    <input type="text" class="form-control" placeholder="Enter Username" name="username" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="password" class="form-control" placeholder="Enter Password" name="pass" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>User Type</label>
-                                    <select class="form-control" id="pillSelect" required name="user_type">
-                                        <option disabled selected>Select User Type</option>
-                                        <option value="administrator">Administrator</option>
-										<option value="resident">Resident</option>
-                                    </select>
-                                </div>
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Create</button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
 			<!-- Main Footer -->
 			<?php include 'templates/main-footer.php' ?>
 			<!-- End Main Footer -->
 			
 		</div>
-		
 	</div>
 	<?php include 'templates/footer.php' ?>
+	<script>
+		function Export(){
+			var conf = confirm("Export users to CSV?");
+			var stmt = "SELECT username, user_type, status FROM tbl_users";
+			var tblHeader = 'Username,User Type,Status';
+			var fileName = "users";
+			if(conf){
+				window.open(`export.php?query=${stmt}&tblHeader=${tblHeader}&fileName=${fileName}`, '_blank');
+			}
+		}
+	</script>
 </body>
 </html>

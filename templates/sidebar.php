@@ -106,7 +106,7 @@ $current_page = PageName();
                             </a>
                         </li>
                         <!-- manage users -->
-                        <li class="nav-item <?= $current_page=='manage-user.php' ? 'active' : null ?>">
+                        <li class="nav-item <?= $current_page=='manage-user.php' || $current_page=='manage_user_add_form.php' ? 'active': null ?>">
                             <a href="manage-user.php" >
                                 <i class="fa fa-server"></i>
                                 <p>Manage Users</p>
