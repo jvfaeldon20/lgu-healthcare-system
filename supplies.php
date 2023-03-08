@@ -1,6 +1,6 @@
 <?php include 'server/server.php' ?>
 <?php 
-	$query = "SELECT * FROM tbl_medical_supply";
+	$query = "SELECT * FROM tbl_medical_supply ORDER BY id DESC";
     $result = $conn->query($query);
 
     $medical_supply = array();

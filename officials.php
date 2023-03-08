@@ -77,7 +77,7 @@ FROM tbl_officials o LEFT JOIN tbl_chairmanship c
 													<tr>
 														<td>
 															<div class="avatar avatar-sm">
-																<span class="avatar-title rounded-circle border border-white"><?= ucwords($row['official'][0]) ?></span>
+																<span class="avatar-title rounded-circle border border-white" style="background-color: lightseagreen"><?= ucwords($row['official'][0]) ?></span>
 															</div>
 															<?= ucwords($row['official']) ?>
 														</td>
