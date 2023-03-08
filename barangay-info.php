@@ -2,12 +2,12 @@
 <?php 
 	if(isset($_SESSION['role'])){
 		if($_SESSION['role'] =='staff'){
-			$off_q = "SELECT *,tblofficials.id as id, tbl_position.id as pos_id,tbl_chairmanship.id as chair_id FROM tblofficials JOIN tbl_position ON tbl_position.id=tblofficials.position JOIN tbl_chairmanship ON tbl_chairmanship.id=tblofficials.chairmanship WHERE `status`='Active' ORDER BY tbl_position.order ASC ";
+			$off_q = "SELECT *,tbl_officials.id as id, tbl_position.id as pos_id,tbl_chairmanship.id as chair_id FROM tbl_officials JOIN tbl_position ON tbl_position.id=tbl_officials.position JOIN tbl_chairmanship ON tbl_chairmanship.id=tbl_officials.chairmanship WHERE `status`='Active' ORDER BY tbl_position.order ASC ";
 		}else{
-			$off_q = "SELECT *,tblofficials.id as id, tbl_position.id as pos_id,tbl_chairmanship.id as chair_id FROM tblofficials JOIN tbl_position ON tbl_position.id=tblofficials.position JOIN tbl_chairmanship ON tbl_chairmanship.id=tblofficials.chairmanship ORDER BY tbl_position.order ASC, `status` ASC ";
+			$off_q = "SELECT *,tbl_officials.id as id, tbl_position.id as pos_id,tbl_chairmanship.id as chair_id FROM tbl_officials JOIN tbl_position ON tbl_position.id=tbl_officials.position JOIN tbl_chairmanship ON tbl_chairmanship.id=tbl_officials.chairmanship ORDER BY tbl_position.order ASC, `status` ASC ";
 		}
 	}else{
-		$off_q = "SELECT *,tblofficials.id as id, tbl_position.id as pos_id,tbl_chairmanship.id as chair_id FROM tblofficials JOIN tbl_position ON tbl_position.id=tblofficials.position JOIN tbl_chairmanship ON tbl_chairmanship.id=tblofficials.chairmanship WHERE `status`='Active' ORDER BY tbl_position.order ASC ";
+		$off_q = "SELECT *,tbl_officials.id as id, tbl_position.id as pos_id,tbl_chairmanship.id as chair_id FROM tbl_officials JOIN tbl_position ON tbl_position.id=tbl_officials.position JOIN tbl_chairmanship ON tbl_chairmanship.id=tbl_officials.chairmanship WHERE `status`='Active' ORDER BY tbl_position.order ASC ";
 	}
 	
 	$res_o = $conn->query($off_q);
@@ -21,7 +21,7 @@
 <html lang="en">
 <head>
 	<?php include 'templates/header.php' ?>
-	<title>Brg Officials and Staff -  Barangay Management System</title>
+	<title>Barangay Info - Masili Health Service System</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -43,73 +43,15 @@
 									</div>
 								</div>
 								<div class="card-body">
-									<div class="table-responsive">
-										<table class="table table-striped">
-											<thead>
-												<tr class="text-primary">
-													<th scope="col">Fullname</th>
-													<th scope="col">Chairmanship</th>
-													<th scope="col">Position</th>
-													<?php if(isset($_SESSION['username'])):?>
-														<?php if($_SESSION['role']=='administrator'):?>
-															<th>Status</th>
-															<th>Action</th>
-														<?php endif ?>
-														
-													<?php endif?>
-												</tr>
-											</thead>
-											<tbody>
-												<?php if(!empty($official)): ?>
-													<?php foreach($official as $row): ?>
-														<tr>
-															<td class="text-uppercase"><?= $row['name'] ?></td>
-															<td><?= $row['title'] ?></td>
-															<td><?= $row['position'] ?></td>
-															<?php if(isset($_SESSION['username'])):?>
-																<?php if($_SESSION['role']=='administrator'):?>
-																	<td><?= $row['status']=='Active' ? '<span class="badge badge-primary">Active</span>' :'<span class="badge badge-danger">Inactive</span>' ?></td>
-																<?php endif ?>
-																<?php if($_SESSION['role']=='administrator'):?>
-																<td>
-																	<a type="button" href="#edit" data-toggle="modal" class="btn btn-link btn-primary" 
-																		title="Edit Position" onclick="editOfficial(this)" data-id="<?= $row['id'] ?>" data-name="<?= $row['name'] ?>" 
-																		data-chair="<?= $row['chair_id'] ?>" data-pos="<?= $row['pos_id'] ?>" data-start="<?= $row['termstart'] ?>" 
-																		data-end="<?= $row['termend'] ?>" data-status="<?= $row['status'] ?>" >
-																		<i class="fa fa-edit"></i>
-																	</a>
-																	<?php if($_SESSION['role']=='administrator'):?>
-																	<a type="button" data-toggle="tooltip" href="model/remove_official.php?id=<?= $row['id'] ?>" onclick="return confirm('Are you sure you want to delete this official?');" class="btn btn-link btn-danger" data-original-title="Remove">
-																		<i class="fa fa-times"></i>
-																	</a>
-																	<?php endif ?>
-																</td>
-																<?php endif ?>
-															<?php endif?>
-														</tr>
-													<?php endforeach ?>
-												<?php else: ?>
-													<tr>
-														<td colspan="3" class="text-center">No Available Data</td>
-													</tr>
-												<?php endif ?>
-											</tbody>
-											<tfoot>
-												<tr>
-													<th scope="col">Fullname</th>
-													<th scope="col">Chairmanship</th>
-													<th scope="col">Position</th>
-													<?php if(isset($_SESSION['username'])):?>
-														<?php if($_SESSION['role']=='administrator'):?>
-															<th>Status</th>
-															<th>Action</th>
-														<?php endif ?>
-														
-													<?php endif?>
-												</tr>
-											</tfoot>
-										</table>
-									</div>
+                                <iframe
+                                    width="100%"
+                                    height="790"
+                                    style="border:0"
+                                    loading="lazy"
+                                    allowfullscreen
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2300.0563774308553!2d121.20115095991318!3d14.181987050701315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd613926c4267f%3A0x62fd88e8affa6ac1!2sMasili%2C%20Real%2C%20Calamba%2C%20Laguna!5e0!3m2!1sen!2sph!4v1678197920713!5m2!1sen!2sph">
+                                </iframe>
 								</div>
 							</div>
 						</div>
