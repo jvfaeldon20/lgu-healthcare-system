@@ -145,39 +145,48 @@
 					<!-- announcement -->
 					<?php if(isset($_SESSION['username']) && ($_SESSION['role'] =='resident' || $_SESSION['role'] =='medical-admin')):?>
 						<div class="row">
-							<div class="col-md-12">
-								<div class="card">
-								<?php include 'templates/loading_screen.php' ?>
-									<div class="card-body">
-										<?php foreach($announcement as $row): ?>
-											<div class="row">
-												<div class="col-md-3">
-													<img
-														src="assets/img/<?= ucwords($row['image']) ?>"
-														alt="announcement-image"
-														style="height:200px; width:100%"
-													/>
-												</div>
-												
-												<div class="col-md-9">
-													<div class="card-body">
-														<h5 class="card-title text-primary"><?= ucwords($row['title']) ?></h5>
-														<span class="text-<?= $row['category'] =='ANNOUNCEMENT'?'success':'warning' ?>"><?= ucwords($row['category']) ?></span>
-														
-														<p class="card-text">
-															<?= ucwords($row['description']) ?>
-														</p>
-														<p class="card-text">
-															<small class="text-muted">Last updated 3 mins ago</small><br>
-															<a href="#" class="btn btn-sm btn-primary mt-2">Read more</a>
-														</p>
-													</div>
-												</div>
-											</div>
-										<?php endforeach ?>
-									</div>
-								</div>
-							</div>
+						<?php include 'templates/loading_screen.php' ?>
+                        <div class="col-md-12 mt-0">
+                            <?php foreach($announcement as $row): ?>
+                                <div class="card" style="margin-bottom: 15px !important;">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <img
+                                                    src="assets/img/<?= ucwords($row['image']) ?>"
+                                                    alt="announcement-image"
+                                                    style="height:200px; width:100%"
+                                                />
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="card-body pt-0">
+                                                    <h5 class="card-title text-primary">
+                                                        <?= ucwords($row['title']) ?>
+                                                    </h5>
+                                                    <span class="text-<?= $row['category'] =='ANNOUNCEMENT'?'success':'warning' ?>"><?= ucwords($row['category']) ?></span>
+                                                    
+                                                    <p class="card-text">
+													<?= ucwords(substr($row['description'],0,200).'..') ?>
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <small class="text-muted">
+															<strong>Date Posted: </strong>
+															<span class="text-primary">
+																<?= ucwords($row['create_date']) ?>
+															</span>
+														</small><br>
+														<a href="dashboard_announcement_detail.php?id=<?= $row['id'] ?>&tbl=tbl_announcement&page=announcement" class="btn btn-sm btn-primary mt-2">
+															Read more
+															<i class="fas fa-solid fa-angle-right ml-2"></i>
+														</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach ?>
+                        </div>
 						</div>
 					<?php endif ?>
 					<!-- end of announcement -->
