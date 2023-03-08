@@ -6,8 +6,7 @@
 
 
 	if($username != '' AND $password != ''){
-		$query 		= "SELECT * FROM tbl_users WHERE username = '$username' AND password = '$password'";
-		
+		$query 		= "SELECT * FROM tbl_users WHERE username = '$username' AND password = '$password' AND status=1";
 		$result 	= $conn->query($query);
 		
 		if($result->num_rows){
@@ -25,7 +24,7 @@
             header('location: ../dashboard.php');
 
 		}else{
-			$_SESSION['message'] = 'Username or password is incorrect!';
+			$_SESSION['message'] = 'Invalid login. Please try again!';
 			$_SESSION['success'] = 'danger';
             header('location: ../login.php');
 		}

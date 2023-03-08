@@ -99,7 +99,7 @@ $current_page = PageName();
                     <h4 class="text-section">SYSTEM MAINTENANCE</h4>
                 </li>
                         <!-- manage announcement -->
-                        <li class="nav-item <?= $current_page=='announcement.php' || $current_page=='announcement_detail.php' || $current_page=='announcement_update_form.php' ? 'active' : null ?>">
+                        <li class="nav-item <?= $current_page=='announcement.php' || $current_page=='announcement_detail.php' || $current_page=='announcement_update_form.php' || $current_page=='announcement_add_form.php' ? 'active' : null ?>">
                             <a href="announcement.php" >
                                 <i class="fas fa-podcast"></i>
                                 <p>Announcement</p>
@@ -119,11 +119,11 @@ $current_page = PageName();
                                 <p>Residents</p>
                             </a>
                         </li>
-                        <!-- reports -->
-                        <li class="nav-item <?= $current_page=='download-reports.php' ? 'active' : null ?>">
-                            <a href="download-reports.php" >
-                                <i class="fa fa-print"></i>
-                                <p>Reports</p>
+                        <!-- manage backup -->
+                        <li class="nav-item <?= $current_page=='manage backup.php' ? 'active' : null ?>">
+                            <a href="manage_backup.php" >
+                                <i class="fa fa-database"></i>
+                                <p>Manage Backup</p>
                             </a>
                         </li>
                         <?php endif ?>
