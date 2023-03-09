@@ -1,6 +1,6 @@
 <?php include 'server/server.php' ?>
 <?php 
-	$query = "SELECT * FROM tblresident";
+	$query = "SELECT * FROM tblresident ORDER BY id DESC";
     $result = $conn->query($query);
 
     $resident = array();
@@ -32,6 +32,14 @@
 				<div class="page-inner">
 					<div class="row mt--2">
 						<div class="col-md-12">
+						<!-- action alert -->
+						<?php if(isset($_SESSION['message'])): ?>
+							<div class="alert alert-<?= $_SESSION['success']; ?> <?= $_SESSION['success']=='danger' ? 'bg-danger text-light' : null ?>" role="alert">
+								<?php echo $_SESSION['message']; ?>
+							</div>
+						<?php unset($_SESSION['message']); ?>
+						<?php endif ?>
+						<!-- end of action alert -->
                         <?php include 'templates/loading_screen.php' ?>
                             <div class="card">
                                 <div class="card-header">
@@ -42,6 +50,10 @@
 
                                         <div class="card-tools">
 											<?php if(isset($_SESSION['username']) && $_SESSION['role']!='resident'): ?>
+												<a href="resident_add_form.php" class="btn btn-primary mr-1">
+													<i class="fa fa-plus mr-2"></i>
+													Resident
+												</a>
 												<button onclick="Export()" class="btn btn-default btn-default">
 													<i class="fa fa-download mr-2"></i>
 													Export to CSV
@@ -62,7 +74,7 @@
 													<th scope="col">Civil Status</th>
                                                     <th scope="col">Gender</th>
 													<th scope="col">Purok</th>
-													<th scope="col">isVoter</th>
+													<th scope="col">Action</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -80,7 +92,11 @@
                                                             <td><?= $row['civilstatus'] ?></td>
                                                             <td><?= $row['gender'] ?></td>
                                                             <td><?= $row['purok'] ?></td>
-                                                            <td><?= $row['voterstatus'] ?></td>
+                                                            <td>
+																<a href="resident_update_form.php?id=<?= $row['id'] ?>" class="btn btn-link" data-toggle="tooltip" data-placement="top" title="Update">
+																	<i class="fa fa-edit mr-2"></i>
+																</a>
+															</td>
                                                         </tr>
 													<?php $no++; endforeach ?>
 												<?php endif ?>
@@ -119,5 +135,19 @@
 			}
 		}
     </script>
+	<style>
+		.text-primary, .text-primary a{
+			color: #1c9790 !important;
+		}
+
+		.btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:disabled{
+			background: #1c9790 !important;
+			border-color: #1c9790 !important;
+		}
+
+        .text-primary:hover, .text-primary a:hover{
+			color: #1c9790 !important;
+		}
+	</style>
 </body>
 </html>
