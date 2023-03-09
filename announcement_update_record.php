@@ -2,26 +2,30 @@
 <?php
     $id = $_POST['id'];
     $image = $_FILES["fileToUpload"]["name"];
+    $create_date = date("Y-m-d");
+    $update_image = "";
+    if($image){
+        $target_dir = "assets/img/";
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+        $update_image = ",image='$image'";
+    }
+
     $title = $_POST['title'];
     $status = $_POST['status'];
     $category = $_POST['category'];
     $description = $_POST['description'];
-    $target_dir = "assets/img/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-    $uploadOk = 1;
-    $create_date = date("Y-m-d");
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
     
     $query = "UPDATE tbl_announcement
-                SET image='$image',
-                    title = '$title',
+                SET title = '$title',
                     status= '$status',
                     category= '$category',
                     description= '$description',
                     create_date='$create_date'
+                    $update_image
               WHERE id='$id'";
-    echo $query;
     $result = $conn->query($query);
     $_SESSION['message'] = 'Failed to update announcement!';
     $_SESSION['success'] = 'danger';
