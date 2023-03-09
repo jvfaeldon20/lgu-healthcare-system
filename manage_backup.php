@@ -58,6 +58,7 @@
                                                         <div class="input-group-append">
                                                             <input type="submit" class="btn btn-primary " value="Start backup">
                                                         </div>
+														<!-- <span class="loader loader-info ml-2 mt-2 <?= $_SESSION['success']; ?>"></span> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -78,9 +79,19 @@
 		</div>
 	</div>
 	<?php include 'templates/footer.php' ?>
-	<script>
-		function Export(){
+	<style>
+		.text-primary, .text-primary a{
+			color: #1c9790 !important;
 		}
-	</script>
+
+		.btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:disabled{
+			background: #1c9790 !important;
+			border-color: #1c9790 !important;
+		}
+
+        .text-primary:hover, .text-primary a:hover{
+			color: #1c9790 !important;
+		}
+	</style>
 </body>
 </html>

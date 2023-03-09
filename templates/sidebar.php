@@ -113,14 +113,14 @@ $current_page = PageName();
                             </a>
                         </li>
                         <!-- resident -->
-                        <li class="nav-item <?= $current_page=='resident.php' ? 'active' : null ?>">
+                        <li class="nav-item <?= $current_page=='resident.php' || $current_page=='resident_add_form.php' || $current_page=='resident_update_form.php' ? 'active' : null ?>">
                             <a href="resident.php" >
                             <i class="fa fa-users"></i>
                                 <p>Residents</p>
                             </a>
                         </li>
                         <!-- manage backup -->
-                        <li class="nav-item <?= $current_page=='manage backup.php' ? 'active' : null ?>">
+                        <li class="nav-item <?= $current_page=='manage_backup.php' ? 'active' : null ?>">
                             <a href="manage_backup.php" >
                                 <i class="fa fa-database"></i>
                                 <p>Manage Backup</p>
@@ -143,3 +143,8 @@ $current_page = PageName();
         </div>
     </div>
 </div>
+<style>
+    .sidebar.sidebar-style-2 .nav.nav-primary > .nav-item.active > a {
+        background-color: lightseagreen !important;
+    }
+</style>

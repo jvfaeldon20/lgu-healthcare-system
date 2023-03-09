@@ -82,7 +82,7 @@
 																</select>
 																<div class="input-group-append">
 																	<a href="manage_user_update_status.php?id=<?= $row['id'] ?>&status=<?= $row['status']==1?0:1 ?>" onclick="return confirm('Do you want to changes?');" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Update user status">
-																	<i class="fa fa-edit mr-2"></i>Update
+																	<i class="fa fa-edit"></i>
 																	</a>
 																</div>
 															</div>
@@ -117,5 +117,19 @@
 			}
 		}
 	</script>
+	<style>
+		.text-primary, .text-primary a{
+			color: #1c9790 !important;
+		}
+
+		.btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:disabled{
+			background: #1c9790 !important;
+			border-color: #1c9790 !important;
+		}
+
+        .text-primary:hover, .text-primary a:hover{
+			color: #1c9790 !important;
+		}
+	</style>
 </body>
 </html>
