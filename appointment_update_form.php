@@ -8,6 +8,15 @@
 	while($row = $result->fetch_assoc()){
 		$appointment[] = $row; 
 	}
+
+    // staff in charge
+    $query = "SELECT * FROM tbl_appointment_staff ORDER BY staff ASC";
+    $result = $conn->query($query);
+
+    $staff = array();
+	while($row = $result->fetch_assoc()){
+		$staff[] = $row; 
+	}
 ?>
 
 <!DOCTYPE html>
@@ -78,9 +87,9 @@
                                                         <label for="inputStaffInCharge">Staff In Charge</label>
                                                         <select class="form-control" id="inputStaffInCharge" name="staff_in_charge">
                                                             <option selected="true" disabled="disabled">--</option>
-                                                            <option>Maria Capacia</option>
-                                                            <option>Precy Bordeos</option>
-                                                            <option>Lilia Dela Cruz</option>
+                                                            <?php foreach($staff as $data): ?>
+                                                                <option value="<?= $data['staff'] ?>" <?=$data['staff'] == $row['staff_in_charge'] ? ' selected="selected"' : '';?>><?= $data['staff'] ?></option>
+                                                            <?php endforeach ?>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -112,5 +121,19 @@
 	
 	<?php include 'templates/footer.php' ?>
 	<script src="assets/js/plugin/datatables/datatables.min.js"></script>
+    <style>
+		.text-primary, .text-primary a{
+			color: #1c9790 !important;
+		}
+
+		.btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:disabled{
+			background: #1c9790 !important;
+			border-color: #1c9790 !important;
+		}
+
+        .text-primary:hover, .text-primary a:hover{
+			color: #1c9790 !important;
+		}
+	</style>
 </body>
 </html>

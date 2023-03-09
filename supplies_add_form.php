@@ -1,4 +1,14 @@
 <?php include 'server/server.php' ?>
+<?php
+	// category
+	$query = "SELECT * FROM tbl_med_supply_category ORDER BY id DESC";
+    $result = $conn->query($query);
+
+    $med_supp_category = array();
+	while($row = $result->fetch_assoc()){
+		$med_supp_category[] = $row; 
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,8 +51,9 @@
                                                     <label for="exampleFormControlSelect1">Category</label>
                                                     <select class="form-control" id="exampleFormControlSelect1" name="category" required>
 														<option selected="true" disabled="disabled">--</option>
-														<option value="PROTECTIVE GEAR">PROTECTIVE GEAR</option>
-                                                        <option value="FIRST AID">FIRST AID</option>
+														<?php foreach($med_supp_category as $row): ?>
+															<option value="<?= ucwords($row['category']) ?>"><?= ucwords($row['category']) ?></option>
+														<?php endforeach ?>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -74,5 +85,19 @@
 	
 	<?php include 'templates/footer.php' ?>
 	<script src="assets/js/plugin/datatables/datatables.min.js"></script>
+	<style>
+		.text-primary, .text-primary a{
+			color: #1c9790 !important;
+		}
+
+		.btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:disabled{
+			background: #1c9790 !important;
+			border-color: #1c9790 !important;
+		}
+
+        .text-primary:hover, .text-primary a:hover{
+			color: #1c9790 !important;
+		}
+	</style>
 </body>
 </html>

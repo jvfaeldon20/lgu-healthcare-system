@@ -8,6 +8,15 @@
 	while($row = $result->fetch_assoc()){
 		$medical_supply[] = $row; 
 	}
+
+	// category
+	$query = "SELECT * FROM tbl_med_supply_category ORDER BY id DESC";
+    $result = $conn->query($query);
+
+    $med_supp_category = array();
+	while($row = $result->fetch_assoc()){
+		$med_supp_category[] = $row; 
+	}
 ?>
 
 <!DOCTYPE html>
@@ -52,8 +61,9 @@
                                                     <div class="form-group">
                                                         <label for="inputCategory">Category</label>
                                                         <select class="form-control" id="inputCategory" name="category">
-                                                            <option value="PROTECTIVE GEAR" <?=$row['category'] == 'PROTECTIVE GEAR' ? ' selected="selected"' : '';?>>PROTECTIVE GEAR</option>
-                                                            <option value="FIRST AID" <?=$row['category'] == 'FIRST AID' ? ' selected="selected"' : '';?>>FIRST AID</option>
+															<?php foreach($med_supp_category as $data): ?>
+																<option value="<?= ucwords($data['category']) ?>" <?=$data['category'] == $row['category'] ? ' selected="selected"' : '';?>><?= ucwords($data['category']) ?></option>
+															<?php endforeach ?>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -86,5 +96,19 @@
 	
 	<?php include 'templates/footer.php' ?>
 	<script src="assets/js/plugin/datatables/datatables.min.js"></script>
+	<style>
+		.text-primary, .text-primary a{
+			color: #1c9790 !important;
+		}
+
+		.btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:disabled{
+			background: #1c9790 !important;
+			border-color: #1c9790 !important;
+		}
+
+        .text-primary:hover, .text-primary a:hover{
+			color: #1c9790 !important;
+		}
+	</style>
 </body>
 </html>

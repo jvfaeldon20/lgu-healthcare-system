@@ -8,6 +8,24 @@
 	while($row = $result->fetch_assoc()){
 		$medicine[] = $row; 
 	}
+
+    // category
+	$query = "SELECT * FROM tbl_med_category ORDER BY category ASC";
+    $result = $conn->query($query);
+
+    $categories = array();
+	while($row = $result->fetch_assoc()){
+		$categories[] = $row; 
+	}
+
+    // unit
+    $query = "SELECT * FROM tbl_med_unit ORDER BY unit ASC";
+    $result = $conn->query($query);
+
+    $units = array();
+	while($row = $result->fetch_assoc()){
+		$units[] = $row; 
+	}
 ?>
 
 <!DOCTYPE html>
@@ -52,9 +70,9 @@
                                                     <div class="form-group">
                                                         <label for="exampleFormControlSelect1">Category</label>
                                                         <select class="form-control" id="exampleFormControlSelect1" name="category">
-                                                            <option value="ANALGESIC" <?=$row['category'] == 'ANALGESIC' ? ' selected="selected"' : '';?>>ANALGESIC</option>
-                                                            <option value="ANTIBIOTIC" <?=$row['category'] == 'ANTIBIOTIC' ? ' selected="selected"' : '';?>>ANTIBIOTIC</option>
-                                                            <option value="VITAMINS" <?=$row['category'] == 'VITAMINS' ? ' selected="selected"' : '';?>>VITAMINS</option>
+                                                            <?php foreach($categories as $data): ?>
+                                                                <option value="<?= $data['category'] ?>" <?=$data['category'] == $row['category'] ? ' selected="selected"' : '';?>><?= $data['category'] ?></option>
+                                                            <?php endforeach ?>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -68,9 +86,9 @@
                                                     <div class="form-group">
                                                         <label for="exampleFormControlSelect1">Unit</label>
                                                         <select class="form-control" id="exampleFormControlSelect1" name="unit">
-                                                            <option value="MG" <?=$row['unit'] == 'MG' ? ' selected="selected"' : '';?>>MG</option>
-                                                            <option value="ML" <?=$row['unit'] == 'ML' ? ' selected="selected"' : '';?>>ML</option>
-                                                            <option value="G" <?=$row['unit'] == 'G' ? ' selected="selected"' : '';?>>G</option>
+                                                            <?php foreach($units as $data): ?>
+                                                                <option value="<?= $data['unit'] ?>" <?=$data['unit'] == $row['unit'] ? ' selected="selected"' : '';?>><?= $data['unit'] ?></option>
+                                                            <?php endforeach ?>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -99,5 +117,19 @@
 	
 	<?php include 'templates/footer.php' ?>
 	<script src="assets/js/plugin/datatables/datatables.min.js"></script>
+    <style>
+		.text-primary, .text-primary a{
+			color: #1c9790 !important;
+		}
+
+		.btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:disabled{
+			background: #1c9790 !important;
+			border-color: #1c9790 !important;
+		}
+
+        .text-primary:hover, .text-primary a:hover{
+			color: #1c9790 !important;
+		}
+	</style>
 </body>
 </html>
