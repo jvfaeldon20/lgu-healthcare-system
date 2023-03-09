@@ -10,41 +10,42 @@ $sqlScript .= "# Generated: " . date( 'l j. F Y' ) . "\n";
 $sqlScript .= "# Hostname: " . $host . "\n";
 $sqlScript .= "# Database: " . $database . "\n";
 $sqlScript .= "# --------------------------------------------------------\n";
-$table      = $_GET['tbl'];
-
-$query = "SELECT * FROM $table";
-    $result = $conn->query($query);
+$sqlTable  = $_GET['tbl'];
     
-    $columnCount = mysqli_num_fields($result);
-    
-    // Prepare SQLscript for dumping data for each table
-    for ($i = 0; $i < $columnCount; $i ++) {
+$query = "SELECT * FROM $sqlTable";
+$result = $conn->query($query);
 
-        while ($row = $result->fetch_row()) {
-            $sqlScript .= "INSERT INTO $table VALUES(";
-            for ($j = 0; $j < $columnCount; $j ++) {
-                $row[$j] = $row[$j];
-                
-                if (isset($row[$j])) {
-                    $sqlScript .= '"' . $row[$j] . '"';
-                } else {
-                    $sqlScript .= '""';
-                }
-                if ($j < ($columnCount - 1)) {
-                    $sqlScript .= ',';
-                }
+$columnCount = mysqli_num_fields($result);
+
+// Prepare SQLscript for dumping data for each table
+for ($i = 0; $i < $columnCount; $i ++) {
+
+    while ($row = $result->fetch_row()) {
+        $sqlScript .= "INSERT INTO $table VALUES(";
+        for ($j = 0; $j < $columnCount; $j ++) {
+            $row[$j] = $row[$j];
+            
+            if (isset($row[$j])) {
+                $sqlScript .= '"' . $row[$j] . '"';
+            } else {
+                $sqlScript .= '""';
             }
-            $sqlScript .= ");\n";
+            if ($j < ($columnCount - 1)) {
+                $sqlScript .= ',';
+            }
         }
+        $sqlScript .= ");\n";
     }
+}
     
     $sqlScript .= "\n"; 
+
 
 if(!empty($sqlScript))
 {
     // Save the SQL script to a backup file
     $date= date("Ymd");
-    $backup_file_name = $table . '_' . $date . '.sql';
+    $backup_file_name = $sqlTable . '_' . $date . '.sql';
     $fileHandler = fopen($backup_file_name, 'w');
     $number_of_lines = fwrite($fileHandler, $sqlScript);
     fclose($fileHandler); 
@@ -62,4 +63,5 @@ if(!empty($sqlScript))
     flush();
     readfile($backup_file_name);
     exec('rm ' . $backup_file_name); 
+    header('location: ../manage_backup.php');
 }

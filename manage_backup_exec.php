@@ -2,9 +2,8 @@
 <?php
    $backup_data = $_POST['backup_data'];
    if($backup_data == 'bis'){
-     
-      require('backup/backup_db.php');
+      header('location: ./backup/backup_db.php');
    }else{
-      require('backup/backup_table.php?tbl='.$backup_data);
+      header('location: ./backup/backup_table.php?tbl='.$backup_data);
    }
 ?>

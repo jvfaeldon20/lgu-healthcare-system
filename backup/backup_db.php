@@ -1,7 +1,6 @@
 <?php
 include '../server/server.php';
 
-$
 $conn->set_charset("utf8");
 
 $sqlScript = "";
@@ -99,4 +98,5 @@ if(!empty($sqlScript))
     flush();
     readfile($backup_file_name);
     exec('rm ' . $backup_file_name); 
+    header('location: ../manage_backup.php');
 }
